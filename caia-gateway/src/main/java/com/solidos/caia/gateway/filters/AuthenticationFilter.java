@@ -45,7 +45,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
           request = exchange.getRequest()
                   .mutate()
-                  .header("useremail", jwtHelper.extractEmail(jwtHelper.validateToken(authheaders)))
+                  .header("userEmail", jwtHelper.extractEmail(jwtHelper.validateToken(authheaders)))
                   .build();
           
         }catch ( Exception e) {

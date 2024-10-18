@@ -42,7 +42,9 @@ public class UserController {
   }
 
   @GetMapping("private")
-  public ResponseEntity<String> privateEndpoint() {
+  public ResponseEntity<String> privateEndpoint(@RequestHeader("userEmail") String userEmail) {
+    System.out.println("userEmail" + userEmail);
+
     return ResponseEntity.ok("This is a private endpoint");
   }
 

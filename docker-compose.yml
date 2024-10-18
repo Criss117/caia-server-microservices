@@ -19,7 +19,6 @@ services:
       - db-vol2:/var/lib/postgresql/data
     ports:
       - 5433:5432
-    restart: always
     environment:
       POSTGRES_USER: conferences
       POSTGRES_PASSWORD: conferences
