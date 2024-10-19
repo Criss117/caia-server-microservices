@@ -1,9 +1,11 @@
 package com.solidos.caia.users.controllers;
 
 import com.solidos.caia.users.dtos.AuthResponse;
+import com.solidos.caia.users.dtos.Example;
 import com.solidos.caia.users.dtos.LoginDto;
 import com.solidos.caia.users.dtos.SignUpDto;
 import com.solidos.caia.users.entites.UserEntity;
+import com.solidos.caia.users.services.RabbitMQProducer;
 import com.solidos.caia.users.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("users")
 public class UserController {
   private final UserService userService;
+  private final RabbitMQProducer rabbitMQProducer;
 
-  public UserController(UserService userService) {
+  public UserController(UserService userService, RabbitMQProducer rabbitMQProducer) {
     this.userService = userService;
+    this.rabbitMQProducer = rabbitMQProducer;
   }
 
   @PostMapping("signup")
@@ -43,14 +47,17 @@ public class UserController {
 
   @GetMapping("private")
   public ResponseEntity<String> privateEndpoint(@RequestHeader("userEmail") String userEmail) {
-    System.out.println("userEmail" + userEmail);
-
     return ResponseEntity.ok("This is a private endpoint");
   }
 
   @PostMapping("/login")
   public AuthResponse login(@RequestBody @Validated LoginDto loginDto) {
-
     return userService.login(loginDto);
+  }
+
+  @PostMapping("rabbitmq")
+  public ResponseEntity<String> rabbitmq(@RequestBody @Validated Example example) {
+    rabbitMQProducer.sendMessage(example);
+    return ResponseEntity.ok("User confirmed  successfully");
   }
 }

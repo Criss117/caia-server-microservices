@@ -6,7 +6,6 @@ services:
       - db-vol1:/var/lib/postgresql/data
     ports:
       - 5432:5432
-    restart: always
     environment:
       POSTGRES_USER: users
       POSTGRES_PASSWORD: users
@@ -23,6 +22,16 @@ services:
       POSTGRES_USER: conferences
       POSTGRES_PASSWORD: conferences
       POSTGRES_DB: conferences
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:4.0-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=caia
+      - RABBITMQ_DEFAULT_PASS=caia
+    ports:
+      - 5672:5672
+      - 15672:15672
 
 volumes:
   db-vol1:

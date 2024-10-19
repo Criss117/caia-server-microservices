@@ -13,9 +13,22 @@ spring:
     url: jdbc:postgresql://localhost:5432/users
     username: users
     password: users
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: caia
+    password: caia
+
+rabbitmq:
+  queue:
+    name: caia-users-queue
+  exchange:
+    name: caia.users.exchange
+  routing:
+    key: caia.users.routing.key
 
 server:
-  port: 8090
+  port: 0
   servlet:
     context-path: /api
 
