@@ -1,6 +1,6 @@
-package com.solidos.caia.users.services;
+package com.solidos.caia.users.application.services;
 
-import com.solidos.caia.users.dtos.Example;
+import com.solidos.caia.users.application.dtos.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

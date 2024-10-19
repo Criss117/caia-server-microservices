@@ -1,12 +1,12 @@
-package com.solidos.caia.users.controllers;
+package com.solidos.caia.users.presentation.controllers;
 
-import com.solidos.caia.users.dtos.AuthResponse;
-import com.solidos.caia.users.dtos.Example;
-import com.solidos.caia.users.dtos.LoginDto;
-import com.solidos.caia.users.dtos.SignUpDto;
-import com.solidos.caia.users.entites.UserEntity;
-import com.solidos.caia.users.services.RabbitMQProducer;
-import com.solidos.caia.users.services.UserService;
+import com.solidos.caia.users.application.dtos.AuthResponse;
+import com.solidos.caia.users.application.dtos.Example;
+import com.solidos.caia.users.application.dtos.LoginDto;
+import com.solidos.caia.users.application.dtos.SignUpDto;
+import com.solidos.caia.users.domain.entities.User;
+import com.solidos.caia.users.application.services.RabbitMQProducer;
+import com.solidos.caia.users.application.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,7 +24,7 @@ public class UserController {
   }
 
   @PostMapping("signup")
-  public ResponseEntity<UserEntity> signup(@RequestBody @Validated SignUpDto user) {
+  public ResponseEntity<User> signup(@RequestBody @Validated SignUpDto user) {
     return ResponseEntity.ok(userService.signup(user));
   }
 

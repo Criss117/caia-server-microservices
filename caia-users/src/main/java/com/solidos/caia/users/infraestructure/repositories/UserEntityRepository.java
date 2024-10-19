@@ -1,12 +1,14 @@
-package com.solidos.caia.users.repositories;
+package com.solidos.caia.users.infraestructure.repositories;
 
-import com.solidos.caia.users.entites.UserEntity;
+import com.solidos.caia.users.infraestructure.entites.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+@Repository
+public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
 
   Optional<UserEntity> findByEmail(String email);
 

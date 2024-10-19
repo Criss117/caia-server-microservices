@@ -1,4 +1,4 @@
-package com.solidos.caia.users.dtos;
+package com.solidos.caia.users.application.dtos;
 
 import lombok.Data;
 

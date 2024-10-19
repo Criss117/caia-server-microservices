@@ -1,4 +1,4 @@
-package com.solidos.caia.users.config;
+package com.solidos.caia.users.infraestructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

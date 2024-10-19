@@ -1,4 +1,4 @@
-package com.solidos.caia.users.entites;
+package com.solidos.caia.users.infraestructure.entites;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

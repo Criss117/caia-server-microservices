@@ -1,10 +1,10 @@
-package com.solidos.caia.users.services;
+package com.solidos.caia.users.application.services;
 
-import com.solidos.caia.users.dtos.AuthResponse;
-import com.solidos.caia.users.dtos.LoginDto;
-import com.solidos.caia.users.dtos.SignUpDto;
-import com.solidos.caia.users.entites.UserEntity;
-import com.solidos.caia.users.repositories.UserRepository;
+import com.solidos.caia.users.application.dtos.AuthResponse;
+import com.solidos.caia.users.application.dtos.LoginDto;
+import com.solidos.caia.users.application.dtos.SignUpDto;
+import com.solidos.caia.users.domain.entities.User;
+import com.solidos.caia.users.infraestructure.repositories.JpaUserRepository;
 import com.solidos.caia.users.utils.JwtHelper;
 import com.solidos.caia.users.utils.TokenGenerator;
 import jakarta.transaction.Transactional;
@@ -19,26 +19,26 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-  private final UserRepository userRepository;
+  private final JpaUserRepository jpaUserRepository;
   private final PasswordEncoder passwordEncoder;
   private final JwtHelper jwtHelper;
 
-  public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtHelper jwtHelper) {
-    this.userRepository = userRepository;
+  public UserServiceImpl(JpaUserRepository jpaUserRepository,  PasswordEncoder passwordEncoder, JwtHelper jwtHelper) {
+    this.jpaUserRepository = jpaUserRepository;
     this.passwordEncoder = passwordEncoder;
     this.jwtHelper = jwtHelper;
   }
 
   @Override
   @Transactional
-  public UserEntity signup(SignUpDto user) {
-    Optional<UserEntity> existsUser = userRepository.findByEmail(user.getEmail());
+  public User signup(SignUpDto user) {
+    Optional<User> existsUser = jpaUserRepository.findByEmail(user.getEmail());
 
     if (existsUser.isPresent()) {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
     }
 
-    UserEntity userEntity = UserEntity.builder()
+    User userEntity = User.builder()
             .firstName(user.getFirstName())
             .lastName(user.getLastName())
             .email(user.getEmail())
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
             .build();
 
     try {
-      return userRepository.save(userEntity);
+      return jpaUserRepository.save(userEntity);
     } catch (Exception e) {
       throw new InternalException("Error creating user");
     }
@@ -56,13 +56,13 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void confirm(String token) {
-    Optional<UserEntity> user = userRepository.findByToken(token);
+    Optional<User> user = jpaUserRepository.findByToken(token);
 
     if (user.isEmpty()) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
     }
 
-    UserEntity userEntity = user.get();
+    User userEntity = user.get();
 
     if (userEntity.getIsEnabled()) {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "User already confirmed");
@@ -75,26 +75,25 @@ public class UserServiceImpl implements UserService {
     userEntity.setIsEnabled(true);
 
     try {
-      userRepository.save(userEntity);
+      jpaUserRepository.save(userEntity);
     } catch (Exception e) {
       throw new BadRequestException("Error confirming user");
     }
   }
 
   @Override
-  public UserEntity findByEmail(String email) {
-    return userRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+  public User findByEmail(String email) {
+    return jpaUserRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
   }
 
   @Override
   public Long findIdByEmail(String email) {
-    return userRepository.findIdByEmail(email).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")).getId();
+    return jpaUserRepository.findIdByEmail(email);
   }
-
 
   @Override
   public AuthResponse login(LoginDto loginDto) {
-    UserEntity user = findByEmail(loginDto.getEmail());
+    User user = findByEmail(loginDto.getEmail());
 
     if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
