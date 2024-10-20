@@ -1,0 +1,74 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-ConfigServerApplication<config-server>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.solidos.caia.configserver.ConfigServerApplication",
+      "projectName": "config-server",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-CaiaEurekaApplication<caia-eureka>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.solidos.caia.eureka.CaiaEurekaApplication",
+      "projectName": "caia-eureka",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-CaiaReviewersApplication<caia-reviewers>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.solidos.caia.reviewers.CaiaReviewersApplication",
+      "projectName": "caia-reviewers",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-CaiaUsersApplication<caia-users>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.solidos.caia.users.CaiaUsersApplication",
+      "projectName": "caia-users",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-CaiaAuthorsApplication<caia-authors>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.solidos.caia.authors.CaiaAuthorsApplication",
+      "projectName": "caia-authors",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-CaiaConferencesApplication<caia-conferences>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.solidos.caia.conferences.CaiaConferencesApplication",
+      "projectName": "caia-conferences",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-CaiaGatewayApplication<caia-gateway>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.solidos.caia.gateway.CaiaGatewayApplication",
+      "projectName": "caia-gateway",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
