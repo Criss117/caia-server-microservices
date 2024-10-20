@@ -10,7 +10,7 @@ spring:
       hibernate:
         format_sql: true
   datasource:
-    url: jdbc:postgresql://localhost:5431/users
+    url: jdbc:postgresql://localhost:5433/users
     username: users
     password: users
   rabbitmq:
@@ -28,7 +28,7 @@ rabbitmq:
     key: caia.users.routing.key
 
 server:
-  port: 8090
+  port: 8093
   servlet:
     context-path: /api/users
 

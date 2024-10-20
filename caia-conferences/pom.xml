@@ -8,7 +8,7 @@
         <version>3.3.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.solidos.caia.conferences</groupId>
+    <groupId>com.solidos.caia</groupId>
     <artifactId>caia-conferences</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>caia-conferences</name>

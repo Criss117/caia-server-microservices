@@ -10,7 +10,7 @@ spring:
       hibernate:
         format_sql: true
   datasource:
-    url: jdbc:postgresql://localhost:5433/conferences
+    url: jdbc:postgresql://localhost:5435/conferences
     username: conferences
     password: conferences
   rabbitmq:
@@ -21,14 +21,14 @@ spring:
 
 rabbitmq:
   queue:
-    name: caia-users-queue
+    name: caia-conferences-queue
   exchange:
-    name: caia.users.exchange
+    name: caia.conferences.exchange
   routing:
-    key: caia.users.routing.key
+    key: caia.conferences.routing.key
 
 server:
-  port: 9090
+  port: 8092
   servlet:
     context-path: /api/conferences
 
@@ -39,10 +39,3 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
-
-security:
-  jwt:
-    key:
-      private: holamundo
-    user:
-      generator: caia-server

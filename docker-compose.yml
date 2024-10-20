@@ -5,17 +5,18 @@ services:
     volumes:
       - db-vol1:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - 5433:5432
     restart: always
     environment:
       POSTGRES_USER: users
       POSTGRES_PASSWORD: users
       POSTGRES_DB: users
+
   authorsdb:
     container_name: authors_db
     image: postgres:16.4
     volumes:
-      - db-vol3:/var/lib/postgresql/data
+      - db-vol2:/var/lib/postgresql/data
     ports:
       - 5434:5432
     restart: always
@@ -28,14 +29,27 @@ services:
     container_name: conferences_db
     image: postgres:16.4
     volumes:
-      - db-vol2:/var/lib/postgresql/data
+      - db-vol3:/var/lib/postgresql/data
     ports:
-      - 5433:5432
+      - 5435:5432
     restart: always
     environment:
       POSTGRES_USER: conferences
       POSTGRES_PASSWORD: conferences
       POSTGRES_DB: conferences
+
+  reviewersdb:
+    container_name: reviewers_db
+    image: postgres:16.4
+    volumes:
+      - db-vol4:/var/lib/postgresql/data
+    ports:
+      - 5436:5432
+    restart: always
+    environment:
+      POSTGRES_USER: reviewers
+      POSTGRES_PASSWORD: reviewers
+      POSTGRES_DB: reviewers
 
   rabbitmq:
     container_name: rabbitmq
@@ -54,4 +68,6 @@ volumes:
   db-vol2:
     external: false
   db-vol3:
+    external: false
+  db-vol4:
     external: false

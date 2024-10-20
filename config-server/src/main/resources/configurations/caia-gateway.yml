@@ -22,6 +22,12 @@ spring:
             - Path=/api/authors/**
           filters:
             - AuthenticationFilter
+        - id: caia-reviewers
+          uri: lb://CAIA-REVIEWERS
+          predicates:
+            - Path=/api/reviewers/**
+          filters:
+            - AuthenticationFilter
     discovery:
       locator:
         enabled: true
