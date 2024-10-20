@@ -4,10 +4,9 @@ import com.solidos.caia.users.application.dtos.AuthResponse;
 import com.solidos.caia.users.application.dtos.Example;
 import com.solidos.caia.users.application.dtos.LoginDto;
 import com.solidos.caia.users.application.dtos.SignUpDto;
-import com.solidos.caia.users.domain.entities.User;
+import com.solidos.caia.users.utils.CommonResponse;
 import com.solidos.caia.users.application.services.RabbitMQProducer;
 import com.solidos.caia.users.application.services.UserService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +22,9 @@ public class UserController {
   }
 
   @PostMapping("signup")
-  public ResponseEntity<User> signup(@RequestBody @Validated SignUpDto user) {
-    return ResponseEntity.ok(userService.signup(user));
+  public ResponseEntity<CommonResponse<Void>> signup(@RequestBody @Validated SignUpDto user) {
+    userService.signup(user);
+    return ResponseEntity.ok(CommonResponse.success("User created successfully"));
   }
 
   /**
@@ -34,29 +34,28 @@ public class UserController {
    * @return a response with a success message.
    */
   @PostMapping("confirm")
-  public ResponseEntity<String> confirm(@RequestParam String token) {
-    try {
-      userService.confirm(token);
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-    }
+  public ResponseEntity<CommonResponse<String>> confirm(@RequestParam String token) {
+    userService.confirm(token);
 
-    return ResponseEntity.ok("User confirmed  successfully");
+    return ResponseEntity.ok(CommonResponse.success("User confirmed  successfully"));
   }
 
   @GetMapping("private")
-  public ResponseEntity<String> privateEndpoint(@RequestHeader("userEmail") String userEmail) {
-    return ResponseEntity.ok("This is a private endpoint");
+  public ResponseEntity<CommonResponse<String>> privateEndpoint(@RequestHeader("userEmail") String userEmail) {
+    return ResponseEntity.ok(CommonResponse.success("This is a private endpoint"));
   }
 
   @PostMapping("/login")
-  public AuthResponse login(@RequestBody @Validated LoginDto loginDto) {
-    return userService.login(loginDto);
+  public ResponseEntity<CommonResponse<AuthResponse>> login(@RequestBody @Validated LoginDto loginDto) {
+    return ResponseEntity.ok(
+        CommonResponse.success(
+            "Login successful",
+            userService.login(loginDto)));
   }
 
   @PostMapping("rabbitmq")
-  public ResponseEntity<String> rabbitmq(@RequestBody @Validated Example example) {
+  public ResponseEntity<CommonResponse<String>> rabbitmq(@RequestBody @Validated Example example) {
     rabbitMQProducer.sendMessage(example);
-    return ResponseEntity.ok("User confirmed  successfully");
+    return ResponseEntity.ok(CommonResponse.success("User confirmed  successfully"));
   }
 }

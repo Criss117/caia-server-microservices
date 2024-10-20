@@ -39,18 +39,25 @@ public class JpaUserRepository implements UserRepository {
   }
 
   @Override
+  public Optional<User> findByEmail(String email, Boolean isEnabled) {
+    Optional<UserEntity> userEntity = userEntityRepository.findByEmail(email, isEnabled);
+
+    return userEntity.map(UserAdapter::toDomain);
+  }
+
+  @Override
   public Long findIdByEmail(String email) {
     UserEntity userEntity = userEntityRepository.findIdByEmail(email).orElseThrow(
-        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
-    );
+        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
     return userEntity.getId();
   }
 
   @Override
-  public Optional<User> findByToken(String token) {
-    Optional<UserEntity> userEntity = userEntityRepository.findByToken(token);
+  public User findByToken(String token) {
+    UserEntity userEntity = userEntityRepository.findByToken(token).orElseThrow(
+        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-    return userEntity.map(UserAdapter::toDomain);
+    return UserAdapter.toDomain(userEntity);
   }
 }

@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
   private final PasswordEncoder passwordEncoder;
   private final JwtHelper jwtHelper;
 
-  public UserServiceImpl(JpaUserRepository jpaUserRepository,  PasswordEncoder passwordEncoder, JwtHelper jwtHelper) {
+  public UserServiceImpl(JpaUserRepository jpaUserRepository, PasswordEncoder passwordEncoder, JwtHelper jwtHelper) {
     this.jpaUserRepository = jpaUserRepository;
     this.passwordEncoder = passwordEncoder;
     this.jwtHelper = jwtHelper;
@@ -35,9 +35,9 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   public User signup(SignUpDto user) {
-    Optional<User> existsUser = jpaUserRepository.findByEmail(user.getEmail());
+    Optional<User> existsUser = jpaUserRepository.findByEmail(user.getEmail(), false);
 
-    if (existsUser.isPresent()) {
+    if (!existsUser.isEmpty()) {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
     }
 
@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
 
     newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
     newUser.setToken(TokenGenerator.generate());
+
     try {
       return jpaUserRepository.save(newUser);
     } catch (Exception e) {
@@ -54,12 +55,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void confirm(String token) {
-    User user = jpaUserRepository.findByToken(token)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-
-    if (user.getIsEnabled()) {
-      throw new ResponseStatusException(HttpStatus.CONFLICT, "User already confirmed");
-    }
+    User user = jpaUserRepository.findByToken(token);
 
     user.confirmAccount();
 
@@ -73,7 +69,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public User findByEmail(String email) {
     return jpaUserRepository.findByEmail(email)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
   }
 
   @Override
@@ -90,8 +86,8 @@ public class UserServiceImpl implements UserService {
     }
 
     return AuthResponse.builder()
-            .email(user.getEmail())
-            .jwt(jwtHelper.createToken(loginDto.getEmail()))
-            .message("Login successful").status(true).build();
+        .email(user.getEmail())
+        .jwt(jwtHelper.createToken(loginDto.getEmail()))
+        .message("Login successful").status(true).build();
   }
 }

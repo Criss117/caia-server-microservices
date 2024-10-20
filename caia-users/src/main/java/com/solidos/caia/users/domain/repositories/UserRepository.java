@@ -6,7 +6,12 @@ import java.util.Optional;
 
 public interface UserRepository {
   User save(User user);
+
   Optional<User> findByEmail(String email);
+
+  Optional<User> findByEmail(String email, Boolean isEnabled);
+
   Long findIdByEmail(String email);
-  Optional<User> findByToken(String token);
+
+  User findByToken(String token);
 }
