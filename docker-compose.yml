@@ -11,6 +11,18 @@ services:
       POSTGRES_USER: users
       POSTGRES_PASSWORD: users
       POSTGRES_DB: users
+  authorsdb:
+    container_name: authors_db
+    image: postgres:16.4
+    volumes:
+      - db-vol3:/var/lib/postgresql/data
+    ports:
+      - 5434:5432
+    restart: always
+    environment:
+      POSTGRES_USER: authors
+      POSTGRES_PASSWORD: authors
+      POSTGRES_DB: authors
 
   conferencesdb:
     container_name: conferences_db
@@ -40,4 +52,6 @@ volumes:
   db-vol1:
     external: false
   db-vol2:
+    external: false
+  db-vol3:
     external: false
