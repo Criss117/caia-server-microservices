@@ -6,6 +6,7 @@ services:
       - db-vol1:/var/lib/postgresql/data
     ports:
       - 5432:5432
+    restart: always
     environment:
       POSTGRES_USER: users
       POSTGRES_PASSWORD: users
@@ -18,6 +19,7 @@ services:
       - db-vol2:/var/lib/postgresql/data
     ports:
       - 5433:5432
+    restart: always
     environment:
       POSTGRES_USER: conferences
       POSTGRES_PASSWORD: conferences
@@ -29,6 +31,7 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=caia
       - RABBITMQ_DEFAULT_PASS=caia
+    restart: always
     ports:
       - 5672:5672
       - 15672:15672
