@@ -13,9 +13,17 @@ public class User {
   private String affiliation;
   private String password;
   private String token;
+
+  @Builder.Default
   private Boolean isEnabled = false;
+
+  @Builder.Default
   private Boolean accountNoExpired = false;
+
+  @Builder.Default
   private Boolean accountNoLocked = false;
+
+  @Builder.Default
   private Boolean credentialsNoExpired = false;
 
   public void confirmAccount() {

@@ -1,5 +1,6 @@
 package com.solidos.caia.users.application.services;
 
+import com.solidos.caia.users.application.adapters.UserAppAdapter;
 import com.solidos.caia.users.application.dtos.AuthResponse;
 import com.solidos.caia.users.application.dtos.LoginDto;
 import com.solidos.caia.users.application.dtos.SignUpDto;
@@ -7,8 +8,10 @@ import com.solidos.caia.users.domain.entities.User;
 import com.solidos.caia.users.infraestructure.repositories.JpaUserRepository;
 import com.solidos.caia.users.utils.JwtHelper;
 import com.solidos.caia.users.utils.TokenGenerator;
+
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.BadRequestException;
+
 import org.apache.logging.log4j.util.InternalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,17 +41,12 @@ public class UserServiceImpl implements UserService {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
     }
 
-    User userEntity = User.builder()
-            .firstName(user.getFirstName())
-            .lastName(user.getLastName())
-            .email(user.getEmail())
-            .affiliation(user.getAffiliation())
-            .password(passwordEncoder.encode(user.getPassword()))
-            .token(TokenGenerator.generate())
-            .build();
+    User newUser = UserAppAdapter.signupDtoToDomain(user);
 
+    newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+    newUser.setToken(TokenGenerator.generate());
     try {
-      return jpaUserRepository.save(userEntity);
+      return jpaUserRepository.save(newUser);
     } catch (Exception e) {
       throw new InternalException("Error creating user");
     }
@@ -56,26 +54,17 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void confirm(String token) {
-    Optional<User> user = jpaUserRepository.findByToken(token);
+    User user = jpaUserRepository.findByToken(token)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-    if (user.isEmpty()) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-    }
-
-    User userEntity = user.get();
-
-    if (userEntity.getIsEnabled()) {
+    if (user.getIsEnabled()) {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "User already confirmed");
     }
 
-    userEntity.setToken(null);
-    userEntity.setAccountNoExpired(true);
-    userEntity.setAccountNoLocked(true);
-    userEntity.setCredentialsNoExpired(true);
-    userEntity.setIsEnabled(true);
+    user.confirmAccount();
 
     try {
-      jpaUserRepository.save(userEntity);
+      jpaUserRepository.save(user);
     } catch (Exception e) {
       throw new BadRequestException("Error confirming user");
     }
@@ -83,7 +72,8 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User findByEmail(String email) {
-    return jpaUserRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+    return jpaUserRepository.findByEmail(email)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
   }
 
   @Override

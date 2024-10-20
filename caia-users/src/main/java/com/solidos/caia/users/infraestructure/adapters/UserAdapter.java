@@ -7,7 +7,8 @@ public class UserAdapter {
 
   public static UserEntity toEntity(User user) {
     return UserEntity.builder()
-        .firstName(user.getFirstName())
+            .id(user.getId())
+            .firstName(user.getFirstName())
         .lastName(user.getLastName())
         .email(user.getEmail())
         .affiliation(user.getAffiliation())
@@ -22,6 +23,7 @@ public class UserAdapter {
 
   public static User toDomain(UserEntity userEntity) {
     return User.builder()
+        .id(userEntity.getId())
         .firstName(userEntity.getFirstName())
         .lastName(userEntity.getLastName())
         .email(userEntity.getEmail())

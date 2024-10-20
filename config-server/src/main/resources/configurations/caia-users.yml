@@ -28,7 +28,7 @@ rabbitmq:
     key: caia.users.routing.key
 
 server:
-  port: 0
+  port: 8090
   servlet:
     context-path: /api
 

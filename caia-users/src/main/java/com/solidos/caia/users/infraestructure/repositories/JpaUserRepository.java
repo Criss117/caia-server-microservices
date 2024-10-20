@@ -4,6 +4,9 @@ import com.solidos.caia.users.domain.entities.User;
 import com.solidos.caia.users.domain.repositories.UserRepository;
 import com.solidos.caia.users.infraestructure.adapters.UserAdapter;
 import com.solidos.caia.users.infraestructure.entites.UserEntity;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,12 +22,13 @@ public class JpaUserRepository implements UserRepository {
   }
 
   @Override
+  @Transactional
   public User save(User user) {
     UserEntity userEntity = UserAdapter.toEntity(user);
 
     UserEntity userSaved = userEntityRepository.save(userEntity);
 
-    return UserAdapter.toDomain(userEntity);
+    return UserAdapter.toDomain(userSaved);
   }
 
   @Override
