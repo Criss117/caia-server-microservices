@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: caia-authors
+  config:
+    import: optional:configserver:http://localhost:8888

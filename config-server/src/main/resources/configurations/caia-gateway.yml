@@ -16,6 +16,12 @@ spring:
             - Path=/api/conferences/**
           filters:
             - AuthenticationFilter
+        - id: caia-authors
+          uri: lb://CAIA-AUTHORS
+          predicates:
+            - Path=/api/authors/**
+          filters:
+            - AuthenticationFilter
     discovery:
       locator:
         enabled: true
