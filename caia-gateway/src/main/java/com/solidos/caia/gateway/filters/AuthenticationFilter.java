@@ -12,7 +12,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
   private final RouteValidator routeValidator;
   private final JwtHelper jwtHelper;
 
-  public  AuthenticationFilter( RouteValidator routeValidator, JwtHelper jwtHelper) {
+  public AuthenticationFilter(RouteValidator routeValidator, JwtHelper jwtHelper) {
     super(Config.class);
     this.routeValidator = routeValidator;
     this.jwtHelper = jwtHelper;
@@ -24,31 +24,31 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
       ServerHttpRequest request = null;
 
       if (routeValidator.isSecured.test(exchange.getRequest())) {
-        if(!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+        if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
           throw new RuntimeException("Authorization Header Missing");
         }
 
         String authheaders = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
 
-        if(authheaders == null) {
+        if (authheaders == null) {
           throw new RuntimeException("Authorization Header Missing");
         }
 
-        if(!authheaders.startsWith("Bearer ")) {
+        if (!authheaders.startsWith("Bearer ")) {
           throw new RuntimeException("Authorization Header Invalid");
         }
 
         authheaders = authheaders.replace("Bearer ", "");
 
-        try{
+        try {
           jwtHelper.validateToken(authheaders);
 
           request = exchange.getRequest()
-                  .mutate()
-                  .header("userEmail", jwtHelper.extractEmail(jwtHelper.validateToken(authheaders)))
-                  .build();
-          
-        }catch ( Exception e) {
+              .mutate()
+              .header("userEmail", jwtHelper.extractEmail(jwtHelper.validateToken(authheaders)))
+              .build();
+
+        } catch (Exception e) {
           throw new RuntimeException("Authorization Header Invalid");
         }
 
@@ -58,7 +58,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     }));
   }
 
-  public static class Config  {
+  public static class Config {
 
   }
 }
