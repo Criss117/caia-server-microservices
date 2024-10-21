@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.solidos.caia.conferences.dto.CreateConferenceDto;
 import com.solidos.caia.conferences.entities.ConferenceEntity;
-import com.solidos.caia.conferences.entities.User;
 import com.solidos.caia.conferences.services.ConferenceService;
 
 import org.springframework.validation.annotation.Validated;
