@@ -7,6 +7,8 @@ import com.solidos.caia.users.application.dtos.SignUpDto;
 import com.solidos.caia.users.utils.CommonResponse;
 import com.solidos.caia.users.application.services.RabbitMQProducer;
 import com.solidos.caia.users.application.services.UserService;
+import com.solidos.caia.users.domain.entities.User;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,15 @@ public class UserController {
   public UserController(UserService userService, RabbitMQProducer rabbitMQProducer) {
     this.userService = userService;
     this.rabbitMQProducer = rabbitMQProducer;
+  }
+
+  @GetMapping("/{userEmail}")
+  public ResponseEntity<CommonResponse<User>> findByEmail(@PathVariable String userEmail) {
+    User user = userService.findByEmail(userEmail);
+
+    user.setPassword(null);
+
+    return ResponseEntity.ok(CommonResponse.success("User found", user));
   }
 
   @PostMapping("signup")
@@ -41,7 +52,7 @@ public class UserController {
   }
 
   @GetMapping("private")
-  public ResponseEntity<CommonResponse<String>> privateEndpoint(@RequestHeader("userEmail") String userEmail) {
+  public ResponseEntity<CommonResponse<String>> privateEndpoint(@RequestHeader String userEmail) {
     return ResponseEntity.ok(CommonResponse.success("This is a private endpoint"));
   }
 

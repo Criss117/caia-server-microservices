@@ -60,4 +60,12 @@ public class JpaUserRepository implements UserRepository {
 
     return UserAdapter.toDomain(userEntity);
   }
+
+  @Override
+  public User findById(Long id) {
+    UserEntity userEntity = userEntityRepository.findUserById(id).orElseThrow(
+        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+    return UserAdapter.toDomain(userEntity);
+  }
 }

@@ -1,6 +1,7 @@
-package com.solidos.caia.users.utils;
+package com.solidos.caia.conferences.utils;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,7 @@ public class CommonResponse<T> {
   /**
    * Código de estado HTTP (ej. 200 para éxito, 400 para error de cliente, etc.).
    */
-  private int status;
+  private HttpStatusCode status;
 
   /**
    * Mensaje de error, si ocurre alguno. Será null si no hay error.
@@ -34,7 +35,7 @@ public class CommonResponse<T> {
    */
   public static <T> CommonResponse<T> success(String message) {
     return CommonResponse.<T>builder()
-        .status(HttpStatus.OK.value()) // o cualquier otro código de éxito
+        .status(HttpStatus.OK) // o cualquier otro código de éxito
         .message(message)
         .build();
   }
@@ -44,13 +45,13 @@ public class CommonResponse<T> {
    */
   public static <T> CommonResponse<T> success(String message, T data) {
     return CommonResponse.<T>builder()
-        .status(HttpStatus.OK.value()) // o cualquier otro código de éxito
+        .status(HttpStatus.OK) // o cualquier otro código de éxito
         .message(message)
         .data(data)
         .build();
   }
 
-  public static <T> CommonResponse<T> success(String message, T data, int status) {
+  public static <T> CommonResponse<T> success(String message, T data, HttpStatusCode status) {
     return CommonResponse.<T>builder()
         .status(status) // o cualquier otro código de éxito
         .message(message)
@@ -61,7 +62,7 @@ public class CommonResponse<T> {
   /**
    * Método de fábrica para una respuesta con error.
    */
-  public static <T> CommonResponse<T> errorResponse(String error, int status) {
+  public static <T> CommonResponse<T> errorResponse(String error, HttpStatusCode status) {
     return CommonResponse.<T>builder()
         .status(status)
         .error(error)

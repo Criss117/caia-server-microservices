@@ -9,6 +9,10 @@ import java.util.Optional;
 
 @Repository
 public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
+
+  @Query("SELECT u FROM UserEntity u WHERE u.id = ?1 AND u.isEnabled = true")
+  Optional<UserEntity> findUserById(Long id);
+
   @Query("SELECT u FROM UserEntity u WHERE u.email = ?1")
   Optional<UserEntity> findByEmail(String email);
 

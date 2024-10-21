@@ -14,4 +14,6 @@ public interface UserRepository {
   Long findIdByEmail(String email);
 
   User findByToken(String token);
+
+  User findById(Long id);
 }
