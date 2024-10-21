@@ -39,4 +39,11 @@ public class ConferenceController {
     return ResponseEntity.ok().body(CommonResponse.success("Conferences found successfully", conferences));
   }
 
+  @GetMapping("find")
+  public ResponseEntity<CommonResponse<List<ConferenceEntity>>> findMany(@RequestHeader String userEmail) {
+    List<ConferenceEntity> conferences = conferenceService.findMany(userEmail);
+
+    return ResponseEntity.ok().body(CommonResponse.success("Conferences found successfully", conferences));
+  }
+
 }

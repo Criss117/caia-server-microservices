@@ -10,18 +10,21 @@ spring:
             - Path=/api/users/**
           filters:
             - AuthenticationFilter
+
         - id: caia-conferences
           uri: lb://CAIA-CONFERENCES
           predicates:
             - Path=/api/conferences/**
           filters:
             - AuthenticationFilter
+
         - id: caia-authors
           uri: lb://CAIA-AUTHORS
           predicates:
             - Path=/api/authors/**
           filters:
             - AuthenticationFilter
+
         - id: caia-reviewers
           uri: lb://CAIA-REVIEWERS
           predicates:
