@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   public User signup(SignUpDto user) {
-    Optional<User> existsUser = jpaUserRepository.findByEmail(user.getEmail(), false);
+    Optional<User> existsUser = jpaUserRepository.findByEmail(user.getEmail());
 
     if (!existsUser.isEmpty()) {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
