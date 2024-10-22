@@ -101,4 +101,10 @@ public class ConferenceServiceImpl implements ConferenceService {
     return members.stream().map(
         member -> member.getConferenceEntity()).toList();
   }
+
+  @Override
+  public ConferenceEntity findBySlug(String slug) {
+    return conferencesRepository.findBySlug(slug).orElseThrow(
+        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Conference not found"));
+  }
 }

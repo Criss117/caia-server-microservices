@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 public class ConferenceController {
@@ -32,13 +33,6 @@ public class ConferenceController {
     return ResponseEntity.ok().body(CommonResponse.success("Conference created successfully", conference));
   }
 
-  @GetMapping("public")
-  public ResponseEntity<CommonResponse<List<ConferenceEntity>>> findManyWithOutAuth() {
-    List<ConferenceEntity> conferences = conferenceService.findMany();
-
-    return ResponseEntity.ok().body(CommonResponse.success("Conferences found successfully", conferences));
-  }
-
   @GetMapping("find")
   public ResponseEntity<CommonResponse<List<ConferenceEntity>>> findMany(@RequestHeader String userEmail) {
     List<ConferenceEntity> conferences = conferenceService.findMany(userEmail);
@@ -46,4 +40,17 @@ public class ConferenceController {
     return ResponseEntity.ok().body(CommonResponse.success("Conferences found successfully", conferences));
   }
 
+  @GetMapping("public")
+  public ResponseEntity<CommonResponse<List<ConferenceEntity>>> findManyWithOutAuth() {
+    List<ConferenceEntity> conferences = conferenceService.findMany();
+
+    return ResponseEntity.ok().body(CommonResponse.success("Conferences found successfully", conferences));
+  }
+
+  @GetMapping("/public/{slug}")
+  public ResponseEntity<CommonResponse<ConferenceEntity>> publicFindConference(@PathVariable String slug) {
+    var conference = conferenceService.findBySlug(slug);
+
+    return ResponseEntity.ok().body(CommonResponse.success("Conference found successfully", conference));
+  }
 }

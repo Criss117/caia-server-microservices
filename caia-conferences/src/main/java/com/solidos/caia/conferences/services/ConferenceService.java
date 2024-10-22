@@ -13,4 +13,6 @@ public interface ConferenceService {
   public List<ConferenceEntity> findMany();
 
   public List<ConferenceEntity> findMany(String email);
+
+  public ConferenceEntity findBySlug(String slug);
 }
