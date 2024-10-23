@@ -11,4 +11,8 @@ import com.solidos.caia.conferences.entities.MemberEntity;
 public interface MemberRepository extends JpaRepository<MemberEntity, MemberComposeId> {
   @Query("SELECT m FROM MemberEntity m WHERE m.memberComposeId.organizerId = ?1")
   List<MemberEntity> findConferencesIdByConferencesId(Long conferencesId);
+
+  @Query("SELECT CASE WHEN COUNT(m) > 0 THEN TRUE ELSE FALSE END FROM MemberEntity m" +
+      " WHERE m.memberComposeId.organizerId = ?1 AND m.memberComposeId.conferenceId = ?2")
+  Boolean isOrganizer(Long organizerId, Long conferenceId);
 }
