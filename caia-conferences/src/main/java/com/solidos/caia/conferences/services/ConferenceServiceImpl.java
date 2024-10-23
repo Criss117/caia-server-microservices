@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.solidos.caia.conferences.adapters.OrganizerAdapter;
+import com.solidos.caia.conferences.dto.ConferenceWithRoleDto;
 import com.solidos.caia.conferences.dto.CreateConferenceDto;
 import com.solidos.caia.conferences.entities.ConferenceEntity;
 import com.solidos.caia.conferences.entities.MemberComposeId;
@@ -106,5 +107,20 @@ public class ConferenceServiceImpl implements ConferenceService {
   public ConferenceEntity findBySlug(String slug) {
     return conferencesRepository.findBySlug(slug).orElseThrow(
         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Conference not found"));
+  }
+
+  @Override
+  public ConferenceWithRoleDto findBySlug(String slug, String userEmail) {
+    OrganizerEntity organizer = organizerRepository.findByEmail(userEmail).orElseThrow(
+        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Organizer not found"));
+
+    ConferenceEntity conference = findBySlug(slug);
+
+    Boolean userIsOrganizer = memberRepository.isOrganizer(organizer.getId(), conference.getId());
+
+    return ConferenceWithRoleDto.builder()
+        .conference(conference)
+        .isOrganizer(userIsOrganizer)
+        .build();
   }
 }

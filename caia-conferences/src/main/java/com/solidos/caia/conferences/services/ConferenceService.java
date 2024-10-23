@@ -2,6 +2,7 @@ package com.solidos.caia.conferences.services;
 
 import java.util.List;
 
+import com.solidos.caia.conferences.dto.ConferenceWithRoleDto;
 import com.solidos.caia.conferences.dto.CreateConferenceDto;
 import com.solidos.caia.conferences.entities.ConferenceEntity;
 
@@ -15,4 +16,6 @@ public interface ConferenceService {
   public List<ConferenceEntity> findMany(String email);
 
   public ConferenceEntity findBySlug(String slug);
+
+  public ConferenceWithRoleDto findBySlug(String slug, String userEmail);
 }

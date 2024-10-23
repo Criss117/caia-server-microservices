@@ -2,6 +2,7 @@ package com.solidos.caia.conferences.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.solidos.caia.conferences.dto.ConferenceWithRoleDto;
 import com.solidos.caia.conferences.dto.CreateConferenceDto;
 import com.solidos.caia.conferences.entities.ConferenceEntity;
 import com.solidos.caia.conferences.services.ConferenceService;
@@ -50,6 +51,14 @@ public class ConferenceController {
   @GetMapping("/public/{slug}")
   public ResponseEntity<CommonResponse<ConferenceEntity>> publicFindConference(@PathVariable String slug) {
     var conference = conferenceService.findBySlug(slug);
+
+    return ResponseEntity.ok().body(CommonResponse.success("Conference found successfully", conference));
+  }
+
+  @GetMapping("/private/{slug}")
+  public ResponseEntity<CommonResponse<ConferenceWithRoleDto>> privateFindConference(
+      @PathVariable String slug, @RequestHeader String userEmail) {
+    var conference = conferenceService.findBySlug(slug, userEmail);
 
     return ResponseEntity.ok().body(CommonResponse.success("Conference found successfully", conference));
   }

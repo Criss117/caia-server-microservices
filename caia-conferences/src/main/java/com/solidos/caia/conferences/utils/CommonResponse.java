@@ -1,7 +1,6 @@
 package com.solidos.caia.conferences.utils;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 
 import lombok.Builder;
 import lombok.Data;
