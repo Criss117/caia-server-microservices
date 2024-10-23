@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.solidos.caia.conferences.adapters.OrganizerAdapter;
 import com.solidos.caia.conferences.dto.ConferenceWithRoleDto;
 import com.solidos.caia.conferences.dto.CreateConferenceDto;
+import com.solidos.caia.conferences.dto.FindUserByEmailResponse;
 import com.solidos.caia.conferences.entities.ConferenceEntity;
 import com.solidos.caia.conferences.entities.MemberComposeId;
 import com.solidos.caia.conferences.entities.MemberEntity;

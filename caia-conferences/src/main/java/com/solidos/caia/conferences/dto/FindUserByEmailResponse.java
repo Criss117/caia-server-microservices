@@ -1,4 +1,4 @@
-package com.solidos.caia.conferences.services;
+package com.solidos.caia.conferences.dto;
 
 import com.solidos.caia.conferences.entities.OrganizerEntity;
 

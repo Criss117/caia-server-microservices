@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.solidos.caia.conferences.dto.ConferenceWithRoleDto;
 import com.solidos.caia.conferences.dto.CreateConferenceDto;
+import com.solidos.caia.conferences.dto.FindUserByEmailResponse;
 import com.solidos.caia.conferences.entities.ConferenceEntity;
 
 public interface ConferenceService {
