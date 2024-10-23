@@ -7,7 +7,10 @@ import com.solidos.caia.authors.dtos.CreatePaperDto;
 import com.solidos.caia.authors.entities.PaperEntity;
 import com.solidos.caia.authors.services.AuthorService;
 
+import java.util.List;
+
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -29,4 +32,8 @@ public class AuthorController {
     return authorService.createPaper(userEmail, createPaperDto, file);
   }
 
+  @GetMapping("own-papers")
+  public List<PaperEntity> findOwnPapers(@RequestHeader String userEmail) {
+    return authorService.findOwnPapers(userEmail);
+  }
 }

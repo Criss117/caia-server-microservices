@@ -16,7 +16,8 @@ public class RouteValidator {
       "/api/conferences/health",
       "/api/authors/health",
       "/api/reviewers/health",
-      "/api/conferences/public");
+      "/api/conferences/public",
+      "/api/authors/papers");
 
   public Predicate<ServerHttpRequest> isSecured = request -> openApiEndpoints
       .stream()

@@ -1,5 +1,7 @@
 package com.solidos.caia.authors.services;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -75,6 +77,14 @@ public class AuthorServiceImpl implements AuthorService {
     } catch (Exception e) {
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error creating paper");
     }
+  }
+
+  @Override
+  public List<PaperEntity> findOwnPapers(String userEmail) {
+    AuthorEntity author = authorRepository.findByEmail(userEmail)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+    return paperRepository.findByAuthorId(author.getId());
   }
 
 }
