@@ -3,6 +3,18 @@ spring:
     name: caia-gateway
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          "[/**]": # Aplicar CORS a todas las rutas
+            allowedOrigins: "http://localhost:3000" # Origen permitido, puedes agregar más URLs
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
       routes:
         - id: caia-users
           uri: lb://CAIA-USERS

@@ -84,7 +84,16 @@ public class AuthorServiceImpl implements AuthorService {
     AuthorEntity author = authorRepository.findByEmail(userEmail)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-    return paperRepository.findByAuthorId(author.getId());
+    return paperRepository.findByAuthorId(author.getId()).stream().map(paper -> {
+      return PaperEntity.builder()
+          .id(paper.getId())
+          .title(paper.getTitle())
+          .description(paper.getDescription())
+          .fileName(paper.getFileName())
+          .conferenceEntity(paper.getConferenceEntity())
+          .auditMetadata(paper.getAuditMetadata())
+          .build();
+    }).toList();
   }
 
 }

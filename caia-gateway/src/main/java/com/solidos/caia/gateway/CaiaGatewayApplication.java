@@ -9,5 +9,4 @@ public class CaiaGatewayApplication {
   public static void main(String[] args) {
     SpringApplication.run(CaiaGatewayApplication.class, args);
   }
-
 }

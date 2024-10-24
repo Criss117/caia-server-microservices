@@ -42,7 +42,6 @@ public class PaperEntity {
 
   @ManyToOne
   @JoinColumn(name = "conference_id", updatable = false)
-  @JsonBackReference
   private ConferenceEntity conferenceEntity;
 
   @Column(nullable = false)
