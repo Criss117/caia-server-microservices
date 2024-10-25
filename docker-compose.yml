@@ -12,8 +12,8 @@ services:
       POSTGRES_PASSWORD: users
       POSTGRES_DB: users
 
-  authorsdb:
-    container_name: authors_db
+  papersdb:
+    container_name: papers_db
     image: postgres:16.4
     volumes:
       - db-vol2:/var/lib/postgresql/data
@@ -21,9 +21,9 @@ services:
       - 5434:5432
     restart: always
     environment:
-      POSTGRES_USER: authors
-      POSTGRES_PASSWORD: authors
-      POSTGRES_DB: authors
+      POSTGRES_USER: papers
+      POSTGRES_PASSWORD: papers
+      POSTGRES_DB: papers
 
   conferencesdb:
     container_name: conferences_db

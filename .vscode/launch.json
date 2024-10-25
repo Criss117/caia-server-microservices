@@ -42,11 +42,11 @@
     },
     {
       "type": "java",
-      "name": "Spring Boot-CaiaAuthorsApplication<caia-authors>",
+      "name": "Spring Boot-CaiaPapersApplication<caia-papers>",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "mainClass": "com.solidos.caia.authors.CaiaAuthorsApplication",
-      "projectName": "caia-authors",
+      "mainClass": "com.solidos.caia.papers.CaiaPapersApplication",
+      "projectName": "caia-papers",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
     },

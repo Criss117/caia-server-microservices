@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: caia-papers
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5434/papers
+    username: papers
+    password: papers
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: caia
+    password: caia
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 15MB
+      max-request-size: 15MB
+
+rabbitmq:
+  queue:
+    name: caia-papers-queue
+  exchange:
+    name: caia.papers.exchange
+  routing:
+    key: caia.papers.routing.key
+
+server:
+  port: 8091
+  servlet:
+    context-path: /api/papers
+
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${random.uuid}
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
