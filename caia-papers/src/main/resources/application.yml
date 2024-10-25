@@ -1,5 +1,5 @@
 spring:
   application:
-    name: caia-authors
+    name: caia-papers
   config:
     import: optional:configserver:http://localhost:8888
