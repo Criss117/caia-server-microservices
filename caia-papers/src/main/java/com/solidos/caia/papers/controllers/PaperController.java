@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class PaperController {
@@ -42,4 +43,10 @@ public class PaperController {
 
     return ResponseEntity.ok().body(CommonResponse.success("Paper found successfully", papers));
   }
+
+  @GetMapping("find/{paperId}")
+  public PaperEntity getMethodName(@RequestParam Long paperId) {
+    return paperService.findPaper(paperId);
+  }
+
 }

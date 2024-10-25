@@ -96,4 +96,10 @@ public class PaperServiceImpl implements PaperService {
     }).toList();
   }
 
+  @Override
+  public PaperEntity findPaper(Long id) {
+    return paperRepository.findPaper(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paper not found"));
+  }
+
 }

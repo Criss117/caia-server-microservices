@@ -11,4 +11,6 @@ public interface PaperService {
   public PaperEntity createPaper(String userEmail, CreatePaperDto createPaperDto, MultipartFile file);
 
   public List<PaperEntity> findOwnPapers(String userEmail);
+
+  public PaperEntity findPaper(Long id);
 }
