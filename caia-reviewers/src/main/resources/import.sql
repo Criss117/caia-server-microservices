@@ -1,0 +1,1 @@
+INSERT INTO invitations (user_id, conference_id, state, message, token, created_at) VALUES (1, 1, 'PENDING', 'This is a test invitation', 'token', NOW());
