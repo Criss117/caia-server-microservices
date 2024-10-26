@@ -47,7 +47,6 @@
 #   client:
 #     serviceUrl:
 #       defaultZone: http://caia-eureka:8761/eureka
-
 spring:
   application:
     name: caia-papers

@@ -57,11 +57,11 @@ services:
       - 5672:5672
       - 15672:15672
 
-  # caia-eureka:
-  #   container_name: caia-eureka
-  #   image: caia-eureka
-  #   ports:
-  #     - 8761:8761
+  caia-eureka:
+    container_name: caia-eureka
+    image: caia-eureka
+    ports:
+      - 8761:8761
 
   # caia-conferences:
   #   container_name: caia-conferences
@@ -108,7 +108,6 @@ services:
   #     - caia-eureka
   #     - caia-conferences
   #     - caia-papers
-  #     - caia-reviewers
   #     - caia-users
 
 volumes:

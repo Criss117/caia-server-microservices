@@ -10,7 +10,7 @@
 #       ddl-auto: create
 #     properties:
 #       hibernate:
-#         format-sql: true
+#         "[format_sql]": true
 #   datasource:
 #     url: jdbc:postgresql://reviewersdb:5432/reviewers
 #     username: reviewers
@@ -55,7 +55,7 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-        format-sql: true
+        "[format_sql]": true
   datasource:
     url: jdbc:postgresql://localhost:5436/reviewers
     username: reviewers

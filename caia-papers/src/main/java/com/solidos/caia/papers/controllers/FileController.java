@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class FileController {
-  @GetMapping("/papers/{filename}")
+  @GetMapping("/files/{filename}")
   public ResponseEntity<Resource> getPdf(@PathVariable String filename) {
     // Cargar el archivo PDF desde la carpeta resources/papers
     Resource resource = new ClassPathResource("papers/" + filename);

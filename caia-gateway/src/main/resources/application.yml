@@ -21,14 +21,14 @@
 #         - id: caia-users
 #           uri: lb://CAIA-USERS
 #           predicates:
-#             - Path=/api/users/***
+#             - Path=/api/users/**
 #           filters:
 #             - AuthenticationFilter
 
 #         - id: caia-conferences
 #           uri: lb://CAIA-CONFERENCES
 #           predicates:
-#             - Path=/api/conferences/***
+#             - Path=/api/conferences/**
 #           filters:
 #             - AuthenticationFilter
 
@@ -42,7 +42,7 @@
 #         - id: caia-reviewers
 #           uri: lb://CAIA-REVIEWERS
 #           predicates:
-#             - Path=/api/reviewers/***
+#             - Path=/api/reviewers/**
 #           filters:
 #             - AuthenticationFilter
 #     discovery:
