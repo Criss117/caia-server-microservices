@@ -1,8 +1,9 @@
 package com.solidos.caia.users.domain.repositories;
 
-import com.solidos.caia.users.domain.entities.User;
-
+import java.util.List;
 import java.util.Optional;
+
+import com.solidos.caia.users.domain.entities.User;
 
 public interface UserRepository {
   User save(User user);
@@ -16,4 +17,6 @@ public interface UserRepository {
   User findByToken(String token);
 
   User findById(Long id);
+
+  public List<User> findByQuery(String query);
 }

@@ -1,5 +1,14 @@
 package com.solidos.caia.users.application.services.impl;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.logging.log4j.util.InternalException;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.solidos.caia.users.application.adapters.UserAppAdapter;
 import com.solidos.caia.users.application.dtos.AuthResponse;
 import com.solidos.caia.users.application.dtos.LoginDto;
@@ -12,14 +21,6 @@ import com.solidos.caia.users.utils.TokenGenerator;
 
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.BadRequestException;
-
-import org.apache.logging.log4j.util.InternalException;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -90,5 +91,9 @@ public class UserServiceImpl implements UserService {
         .email(user.getEmail())
         .jwt(jwtHelper.createToken(loginDto.getEmail()))
         .message("Login successful").status(true).build();
+  }
+  @Override
+  public List<User> findByQuery(String query){
+  return jpaUserRepository.findByQuery(query);
   }
 }

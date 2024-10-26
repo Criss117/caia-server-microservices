@@ -1,11 +1,13 @@
 package com.solidos.caia.users.infraestructure.repositories;
 
-import com.solidos.caia.users.infraestructure.entites.UserEntity;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import com.solidos.caia.users.infraestructure.entites.UserEntity;
 
 @Repository
 public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
@@ -23,4 +25,6 @@ public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
   Optional<UserEntity> findIdByEmail(String email);
 
   Optional<UserEntity> findByToken(String token);
+  @Query("SELECT u FROM UserEntity u WHERE u.email LIKE %?1% OR u.firstName LIKE %?1% OR u.lastName LIKE %?1%")
+  List<UserEntity> findByQuery(String query);
 }

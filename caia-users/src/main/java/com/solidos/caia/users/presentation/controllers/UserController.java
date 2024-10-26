@@ -1,17 +1,26 @@
 package com.solidos.caia.users.presentation.controllers;
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.solidos.caia.users.application.dtos.AuthResponse;
 import com.solidos.caia.users.application.dtos.Example;
 import com.solidos.caia.users.application.dtos.LoginDto;
 import com.solidos.caia.users.application.dtos.SignUpDto;
-import com.solidos.caia.users.utils.CommonResponse;
 import com.solidos.caia.users.application.services.RabbitMQProducer;
 import com.solidos.caia.users.application.services.UserService;
 import com.solidos.caia.users.domain.entities.User;
+import com.solidos.caia.users.utils.CommonResponse;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -69,4 +78,9 @@ public class UserController {
     rabbitMQProducer.sendMessage(example);
     return ResponseEntity.ok(CommonResponse.success("User confirmed  successfully"));
   }
+   @GetMapping("find/{query}")
+   public ResponseEntity<CommonResponse<List<User>>> findByQuery(@PathVariable String query) {
+       var users=userService.findByQuery(query);
+    return ResponseEntity.ok().body(CommonResponse.success("Query Success", users));
+   }
 }
