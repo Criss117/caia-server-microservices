@@ -11,7 +11,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class ReviewInvitation {
+public class Invitation {
   private InvitationId id;
 
   private String token;

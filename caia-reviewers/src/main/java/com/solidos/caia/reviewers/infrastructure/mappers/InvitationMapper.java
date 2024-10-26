@@ -1,14 +1,14 @@
 package com.solidos.caia.reviewers.infrastructure.mappers;
 
-import com.solidos.caia.reviewers.domain.entities.ReviewInvitation;
+import com.solidos.caia.reviewers.domain.entities.Invitation;
 import com.solidos.caia.reviewers.domain.valueobjects.AuditMetadata;
 import com.solidos.caia.reviewers.domain.valueobjects.InvitationId;
 import com.solidos.caia.reviewers.infrastructure.entities.EntityAuditMetadata;
 import com.solidos.caia.reviewers.infrastructure.entities.InvitationComposeId;
 import com.solidos.caia.reviewers.infrastructure.entities.InvitationEntity;
 
-public class ReviewInvitationMapper {
-  public static InvitationEntity domainToEntity(ReviewInvitation reviewInvitation) {
+public class InvitationMapper {
+  public static InvitationEntity domainToEntity(Invitation reviewInvitation) {
 
     InvitationComposeId id = InvitationComposeId.builder()
         .userId(reviewInvitation.getId().getUserId())
@@ -36,7 +36,7 @@ public class ReviewInvitationMapper {
         .build();
   }
 
-  public static ReviewInvitation entityToDomain(InvitationEntity entity) {
+  public static Invitation entityToDomain(InvitationEntity entity) {
     InvitationId id = InvitationId.builder()
         .userId(entity.getInvitationComposeId().getUserId())
         .conferenceId(entity.getInvitationComposeId().getConferenceId())
@@ -48,7 +48,7 @@ public class ReviewInvitationMapper {
         .deletedAt(entity.getAuditMetadata().getDeletedAt())
         .build();
 
-    return ReviewInvitation.builder()
+    return Invitation.builder()
         .id(id)
         .token(entity.getToken())
         .state(entity.getState())

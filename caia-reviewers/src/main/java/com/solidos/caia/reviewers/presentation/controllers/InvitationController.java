@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.solidos.caia.reviewers.application.dtos.SendInvitationDto;
-import com.solidos.caia.reviewers.application.services.ReviewInvitationService;
+import com.solidos.caia.reviewers.application.services.InvitationService;
 import com.solidos.caia.reviewers.utils.CommonResponse;
 
 import org.springframework.http.ResponseEntity;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/invitations")
-public class ReviewInvitationController {
-  private final ReviewInvitationService reviewInvitationService;
+public class InvitationController {
+  private final InvitationService reviewInvitationService;
 
-  public ReviewInvitationController(ReviewInvitationService reviewInvitationService) {
+  public InvitationController(InvitationService reviewInvitationService) {
     this.reviewInvitationService = reviewInvitationService;
   }
 

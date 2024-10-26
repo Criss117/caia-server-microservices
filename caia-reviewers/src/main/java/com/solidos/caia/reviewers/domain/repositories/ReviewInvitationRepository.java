@@ -1,7 +1,7 @@
 package com.solidos.caia.reviewers.domain.repositories;
 
-import com.solidos.caia.reviewers.domain.entities.ReviewInvitation;
+import com.solidos.caia.reviewers.domain.entities.Invitation;
 
 public interface ReviewInvitationRepository {
-  ReviewInvitation save(ReviewInvitation reviewInvitation);
+  Invitation save(Invitation reviewInvitation);
 }
