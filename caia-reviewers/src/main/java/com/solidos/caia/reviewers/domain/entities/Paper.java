@@ -10,11 +10,17 @@ import lombok.Getter;
 @Getter
 public class Paper {
   private Long id;
+
   private String title;
+
   private String description;
+
   private String fileName;
+
   private String keys;
+
   private PaperState state;
+
   private AuditMetadata auditMetadata;
 
   public void changeState(PaperState state) {

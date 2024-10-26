@@ -1,9 +1,10 @@
-package com.solidos.caia.users.application.services;
+package com.solidos.caia.users.application.services.impl;
 
 import com.solidos.caia.users.application.adapters.UserAppAdapter;
 import com.solidos.caia.users.application.dtos.AuthResponse;
 import com.solidos.caia.users.application.dtos.LoginDto;
 import com.solidos.caia.users.application.dtos.SignUpDto;
+import com.solidos.caia.users.application.services.UserService;
 import com.solidos.caia.users.domain.entities.User;
 import com.solidos.caia.users.infraestructure.repositories.JpaUserRepository;
 import com.solidos.caia.users.utils.JwtHelper;
