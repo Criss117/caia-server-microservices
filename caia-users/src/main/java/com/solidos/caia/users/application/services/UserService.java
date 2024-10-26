@@ -1,5 +1,7 @@
 package com.solidos.caia.users.application.services;
 
+import java.util.List;
+
 import com.solidos.caia.users.application.dtos.AuthResponse;
 import com.solidos.caia.users.application.dtos.LoginDto;
 import com.solidos.caia.users.application.dtos.SignUpDto;
@@ -15,4 +17,6 @@ public interface UserService {
   public Long findIdByEmail(String email);
 
   public AuthResponse login(LoginDto loginDto);
+
+  public List<User> findByQuery(String query);
 }
