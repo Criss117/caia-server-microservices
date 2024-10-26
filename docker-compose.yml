@@ -1,51 +1,47 @@
 services:
   usersdb:
-    container_name: users_db
+    container_name: usersdb
     image: postgres:16.4
     volumes:
       - db-vol1:/var/lib/postgresql/data
     ports:
       - 5433:5432
-    restart: always
     environment:
       POSTGRES_USER: users
       POSTGRES_PASSWORD: users
       POSTGRES_DB: users
 
   papersdb:
-    container_name: papers_db
+    container_name: papersdb
     image: postgres:16.4
     volumes:
       - db-vol2:/var/lib/postgresql/data
     ports:
       - 5434:5432
-    restart: always
     environment:
       POSTGRES_USER: papers
       POSTGRES_PASSWORD: papers
       POSTGRES_DB: papers
 
   conferencesdb:
-    container_name: conferences_db
+    container_name: conferencesdb
     image: postgres:16.4
     volumes:
       - db-vol3:/var/lib/postgresql/data
     ports:
       - 5435:5432
-    restart: always
     environment:
       POSTGRES_USER: conferences
       POSTGRES_PASSWORD: conferences
       POSTGRES_DB: conferences
 
   reviewersdb:
-    container_name: reviewers_db
+    container_name: reviewersdb
     image: postgres:16.4
     volumes:
       - db-vol4:/var/lib/postgresql/data
     ports:
       - 5436:5432
-    restart: always
     environment:
       POSTGRES_USER: reviewers
       POSTGRES_PASSWORD: reviewers
@@ -57,10 +53,63 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=caia
       - RABBITMQ_DEFAULT_PASS=caia
-    restart: always
     ports:
       - 5672:5672
       - 15672:15672
+
+  # caia-eureka:
+  #   container_name: caia-eureka
+  #   image: caia-eureka
+  #   ports:
+  #     - 8761:8761
+
+  # caia-conferences:
+  #   container_name: caia-conferences
+  #   image: caia-conferences
+  #   ports:
+  #     - 8092:8092
+  #   depends_on:
+  #     - caia-eureka
+  #     - conferencesdb
+
+  # caia-papers:
+  #   container_name: caia-papers
+  #   image: caia-papers
+  #   ports:
+  #     - 8091:8091
+  #   depends_on:
+  #     - caia-eureka
+  #     - papersdb
+
+  # caia-reviewers:
+  #   container_name: caia-reviewers
+  #   image: caia-reviewers
+  #   ports:
+  #     - 8094:8094
+  #   depends_on:
+  #     - caia-eureka
+  #     - reviewersdb
+
+  # caia-users:
+  #   container_name: caia-users
+  #   image: caia-users
+  #   ports:
+  #     - 8093:8093
+  #   depends_on:
+  #     - caia-eureka
+  #     - usersdb
+
+  # caia-gateway:
+  #   container_name: caia-gateway
+  #   image: caia-gateway
+  #   ports:
+  #     - 8080:8080
+  #   depends_on:
+  #     - caia-eureka
+  #     - caia-conferences
+  #     - caia-papers
+  #     - caia-reviewers
+  #     - caia-users
 
 volumes:
   db-vol1:

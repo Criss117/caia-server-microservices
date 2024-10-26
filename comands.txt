@@ -1,0 +1,14 @@
+bajar contenedeores del docker compose:
+- docker compose down
+
+subir contenedeores del docker compose:
+- docker compose up -d
+
+Borrar imagenes sin usar:
+- docker image prune
+
+Borrar contenedores sin usar:
+- docker container prune
+
+Borrar volúmenes sin usar:  
+- docker volume prune

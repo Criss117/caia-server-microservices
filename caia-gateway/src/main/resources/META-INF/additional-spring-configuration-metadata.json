@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "spring.cloud.discovery.locator.enabled",
+      "type": "java.lang.String",
+      "description": "A description for 'spring.cloud.discovery.locator.enabled'"
+    },
+    {
+      "name": "security.jwt.key.private",
+      "type": "java.lang.String",
+      "description": "A description for 'security.jwt.key.private'"
+    },
+    {
+      "name": "security.jwt.user.generator",
+      "type": "java.lang.String",
+      "description": "A description for 'security.jwt.user.generator'"
+    }
+  ]
+}

@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: optional:configserver:http://localhost:8888
   application:
     name: caia-conferences
   jpa:
@@ -8,9 +10,10 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-        format_sql: true
+        format-sql: true
+
   datasource:
-    url: jdbc:postgresql://localhost:5435/conferences
+    url: jdbc:postgresql://conferences:5435/conferences
     username: conferences
     password: conferences
   rabbitmq:
