@@ -32,10 +32,10 @@
 #           filters:
 #             - AuthenticationFilter
 
-#         - id: caia-authors
-#           uri: lb://CAIA-AUTHORS
+#         - id: caia-papers
+#           uri: lb://CAIA-PAPERS
 #           predicates:
-#             - Path=/api/authors/***
+#             - Path=/api/papers/***
 #           filters:
 #             - AuthenticationFilter
 
@@ -65,7 +65,6 @@
 
 # server:
 #   port: 8080
-
 spring:
   application:
     name: caia-gateway
@@ -100,10 +99,10 @@ spring:
           filters:
             - AuthenticationFilter
 
-        - id: caia-authors
-          uri: lb://CAIA-AUTHORS
+        - id: caia-papers
+          uri: lb://CAIA-PAPERS
           predicates:
-            - Path=/api/authors/**
+            - Path=/api/papers/**
           filters:
             - AuthenticationFilter
 
