@@ -6,5 +6,5 @@ import com.solidos.caia.reviewers.application.dtos.SendInvitationDto;
 public interface InvitationService {
   void sendInvitaion(SendInvitationDto sendInvitationDto);
 
-  void responseInvitation(String token, ResponseInvitationDto responseInvitationDto);
+  void responseInvitation(String userEmail, String token, ResponseInvitationDto responseInvitationDto);
 }

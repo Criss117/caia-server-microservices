@@ -13,4 +13,6 @@ public interface PaperService {
   public List<PaperEntity> findOwnPapers(String userEmail);
 
   public PaperEntity findPaper(Long id);
+
+  public List<PaperEntity> findPapersByConference(Long conferenceId);
 }

@@ -74,6 +74,9 @@ spring:
       enabled: true
       max-file-size: 15MB
       max-request-size: 15MB
+  devtools:
+    restart:
+      exclude: /src/main/resources/papers/**
 
 rabbitmq:
   queue:

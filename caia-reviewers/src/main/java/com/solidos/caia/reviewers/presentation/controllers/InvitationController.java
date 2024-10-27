@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @RestController
 @RequestMapping("/invitations")
@@ -32,12 +33,13 @@ public class InvitationController {
   }
 
   @PostMapping("response/{token}")
-  public ResponseEntity<CommonResponse<Void>> postMethodName(@PathVariable String token,
+  public ResponseEntity<CommonResponse<Void>> postMethodName(
+      @RequestHeader String userEmail,
+      @PathVariable String token,
       @RequestBody @Validated ResponseInvitationDto responseInvitationDto) {
 
-    reviewInvitationService.responseInvitation(token, responseInvitationDto);
+    reviewInvitationService.responseInvitation(userEmail, token, responseInvitationDto);
 
     return ResponseEntity.ok(CommonResponse.success("Invitation responded"));
-
   }
 }

@@ -102,4 +102,9 @@ public class PaperServiceImpl implements PaperService {
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paper not found"));
   }
 
+  @Override
+  public List<PaperEntity> findPapersByConference(Long conferenceId) {
+    return paperRepository.findPapersByConference(conferenceId);
+  }
+
 }

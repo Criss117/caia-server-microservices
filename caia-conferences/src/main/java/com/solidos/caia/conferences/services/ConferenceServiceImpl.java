@@ -19,7 +19,7 @@ import com.solidos.caia.conferences.entities.User;
 import com.solidos.caia.conferences.repositories.ConferenceRepository;
 import com.solidos.caia.conferences.repositories.MemberRepository;
 import com.solidos.caia.conferences.repositories.OrganizerRepository;
-import com.solidos.caia.conferences.repositories.UserHttpClient;
+import com.solidos.caia.conferences.repositories.HttpUserRepository;
 import com.solidos.caia.conferences.utils.CommonResponse;
 import com.solidos.caia.conferences.utils.SlugGenerator;
 
@@ -30,9 +30,9 @@ public class ConferenceServiceImpl implements ConferenceService {
   private final ConferenceRepository conferencesRepository;
   private final MemberRepository memberRepository;
   private final OrganizerRepository organizerRepository;
-  private final UserHttpClient userHttpClient;
+  private final HttpUserRepository userHttpClient;
 
-  public ConferenceServiceImpl(ConferenceRepository conferencesRepository, UserHttpClient userHttpClient,
+  public ConferenceServiceImpl(ConferenceRepository conferencesRepository, HttpUserRepository userHttpClient,
       OrganizerRepository organizerRepository, MemberRepository memberRepository) {
     this.conferencesRepository = conferencesRepository;
     this.userHttpClient = userHttpClient;

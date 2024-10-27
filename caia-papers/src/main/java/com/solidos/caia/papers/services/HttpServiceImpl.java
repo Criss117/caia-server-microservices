@@ -11,21 +11,21 @@ import com.solidos.caia.papers.dtos.FindUserByEmailDto;
 import com.solidos.caia.papers.entities.AuthorEntity;
 import com.solidos.caia.papers.entities.ConferenceEntity;
 import com.solidos.caia.papers.repositories.AuthorRepository;
-import com.solidos.caia.papers.repositories.ConferenceHttpClient;
+import com.solidos.caia.papers.repositories.HttpConferenceRepository;
 import com.solidos.caia.papers.repositories.ConferenceRepository;
-import com.solidos.caia.papers.repositories.UserHttpClient;
+import com.solidos.caia.papers.repositories.HttpUserRepository;
 import com.solidos.caia.papers.utils.CommonResponse;
 
 @Service
 public class HttpServiceImpl implements HttpService {
-  private final UserHttpClient userHttpClient;
-  private final ConferenceHttpClient conferenceHttpClient;
+  private final HttpUserRepository userHttpClient;
+  private final HttpConferenceRepository conferenceHttpClient;
   private final AuthorRepository authorRepository;
   private final ConferenceRepository conferenceRepository;
 
   public HttpServiceImpl(
-      UserHttpClient userHttpClient,
-      ConferenceHttpClient conferenceHttpClient,
+      HttpUserRepository userHttpClient,
+      HttpConferenceRepository conferenceHttpClient,
       AuthorRepository authorRepository,
       ConferenceRepository conferenceRepository) {
     this.userHttpClient = userHttpClient;

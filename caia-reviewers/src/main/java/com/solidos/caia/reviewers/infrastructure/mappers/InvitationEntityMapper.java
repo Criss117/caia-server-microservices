@@ -7,7 +7,7 @@ import com.solidos.caia.reviewers.infrastructure.entities.EntityAuditMetadata;
 import com.solidos.caia.reviewers.infrastructure.entities.InvitationComposeId;
 import com.solidos.caia.reviewers.infrastructure.entities.InvitationEntity;
 
-public class InvitationMapper {
+public class InvitationEntityMapper {
   public static InvitationEntity domainToEntity(Invitation reviewInvitation) {
 
     InvitationComposeId id = InvitationComposeId.builder()

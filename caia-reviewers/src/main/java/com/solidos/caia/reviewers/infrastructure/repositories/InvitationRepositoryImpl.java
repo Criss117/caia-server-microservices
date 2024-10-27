@@ -6,8 +6,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.solidos.caia.reviewers.domain.entities.Invitation;
 import com.solidos.caia.reviewers.domain.repositories.InvitationRepository;
+import com.solidos.caia.reviewers.domain.valueobjects.InvitationId;
 import com.solidos.caia.reviewers.infrastructure.entities.InvitationEntity;
-import com.solidos.caia.reviewers.infrastructure.mappers.InvitationMapper;
+import com.solidos.caia.reviewers.infrastructure.mappers.InvitationEntityMapper;
 
 import jakarta.transaction.Transactional;
 
@@ -23,10 +24,9 @@ public class InvitationRepositoryImpl implements InvitationRepository {
   @Override
   @Transactional
   public Invitation save(Invitation reviewInvitation) {
+    InvitationEntity entity = entityInvitationRepository.save(InvitationEntityMapper.domainToEntity(reviewInvitation));
 
-    InvitationEntity entity = entityInvitationRepository.save(InvitationMapper.domainToEntity(reviewInvitation));
-
-    return InvitationMapper.entityToDomain(entity);
+    return InvitationEntityMapper.entityToDomain(entity);
   }
 
   @Override
@@ -35,7 +35,16 @@ public class InvitationRepositoryImpl implements InvitationRepository {
         .findInvitationByToken(token).orElseThrow(
             () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invitation not found"));
 
-    return InvitationMapper.entityToDomain(invitationEntity);
+    return InvitationEntityMapper.entityToDomain(invitationEntity);
+  }
+
+  @Override
+  public Invitation findById(InvitationId id) {
+    InvitationEntity invitationEntity = entityInvitationRepository
+        .findById(id.getUserId(), id.getConferenceId())
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invitation not found"));
+
+    return InvitationEntityMapper.entityToDomain(invitationEntity);
   }
 
 }
