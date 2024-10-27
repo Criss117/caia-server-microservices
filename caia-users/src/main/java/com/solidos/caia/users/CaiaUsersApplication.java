@@ -11,5 +11,4 @@ public class CaiaUsersApplication {
   public static void main(String[] args) {
     SpringApplication.run(CaiaUsersApplication.class, args);
   }
-
 }
