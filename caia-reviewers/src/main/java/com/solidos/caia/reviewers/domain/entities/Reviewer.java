@@ -1,5 +1,7 @@
 package com.solidos.caia.reviewers.domain.entities;
 
+import java.time.LocalDateTime;
+
 import com.solidos.caia.reviewers.domain.valueobjects.AuditMetadata;
 
 import lombok.Builder;
@@ -22,5 +24,9 @@ public class Reviewer {
 
   public void prepareToSave() {
     this.id = null;
+    this.auditMetadata = AuditMetadata.builder()
+        .createdAt(LocalDateTime.now())
+        .updatedAt(LocalDateTime.now())
+        .build();
   }
 }

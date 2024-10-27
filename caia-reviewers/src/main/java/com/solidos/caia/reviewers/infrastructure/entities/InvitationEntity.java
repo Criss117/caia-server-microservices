@@ -10,6 +10,8 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,9 +30,9 @@ public class InvitationEntity {
   @EmbeddedId
   private InvitationComposeId invitationComposeId;
 
-  // @ManyToOne
-  // @JoinColumn(name = "conference_id", insertable = false, updatable = false)
-  // private ConferenceEntity conferenceEntity;
+  @ManyToOne
+  @JoinColumn(name = "conference_id", insertable = false, updatable = false)
+  private ConferenceEntity conferenceEntity;
 
   // @ManyToOne
   // @JoinColumn(name = "user_id", insertable = false, updatable = false)

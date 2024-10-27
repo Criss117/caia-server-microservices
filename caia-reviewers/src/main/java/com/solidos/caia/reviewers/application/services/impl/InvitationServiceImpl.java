@@ -14,8 +14,6 @@ import com.solidos.caia.reviewers.application.services.ReviewerService;
 import com.solidos.caia.reviewers.domain.entities.Invitation;
 import com.solidos.caia.reviewers.domain.entities.Reviewer;
 import com.solidos.caia.reviewers.domain.repositories.InvitationRepository;
-import com.solidos.caia.reviewers.domain.valueobjects.InvitationId;
-import com.solidos.caia.reviewers.domain.valueobjects.InvitationState;
 
 import jakarta.transaction.Transactional;
 

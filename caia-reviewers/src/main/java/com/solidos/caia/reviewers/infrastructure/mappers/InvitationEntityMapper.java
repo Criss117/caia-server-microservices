@@ -1,8 +1,10 @@
 package com.solidos.caia.reviewers.infrastructure.mappers;
 
+import com.solidos.caia.reviewers.domain.entities.Conference;
 import com.solidos.caia.reviewers.domain.entities.Invitation;
 import com.solidos.caia.reviewers.domain.valueobjects.AuditMetadata;
 import com.solidos.caia.reviewers.domain.valueobjects.InvitationId;
+import com.solidos.caia.reviewers.infrastructure.entities.ConferenceEntity;
 import com.solidos.caia.reviewers.infrastructure.entities.EntityAuditMetadata;
 import com.solidos.caia.reviewers.infrastructure.entities.InvitationComposeId;
 import com.solidos.caia.reviewers.infrastructure.entities.InvitationEntity;
@@ -54,6 +56,35 @@ public class InvitationEntityMapper {
         .state(entity.getState())
         .respondedAt(entity.getRespondedAt())
         .message(entity.getMessage())
+        .auditMetadata(auditMetadata)
+        .build();
+  }
+
+  public static Invitation entityToDomainWithConference(InvitationEntity entity) {
+    InvitationId id = InvitationId.builder()
+        .userId(entity.getInvitationComposeId().getUserId())
+        .conferenceId(entity.getInvitationComposeId().getConferenceId())
+        .build();
+
+    AuditMetadata auditMetadata = AuditMetadata.builder()
+        .createdAt(entity.getAuditMetadata().getCreatedAt())
+        .updatedAt(entity.getAuditMetadata().getUpdatedAt())
+        .deletedAt(entity.getAuditMetadata().getDeletedAt())
+        .build();
+
+    ConferenceEntity conferenceEntity = entity.getConferenceEntity();
+
+    return Invitation.builder()
+        .id(id)
+        .token(entity.getToken())
+        .state(entity.getState())
+        .respondedAt(entity.getRespondedAt())
+        .message(entity.getMessage())
+        .conference(Conference.builder()
+            .id(conferenceEntity.getId())
+            .name(conferenceEntity.getName())
+            .slug(conferenceEntity.getSlug())
+            .build())
         .auditMetadata(auditMetadata)
         .build();
   }

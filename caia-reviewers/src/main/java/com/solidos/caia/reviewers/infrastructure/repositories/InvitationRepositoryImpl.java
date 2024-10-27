@@ -55,7 +55,7 @@ public class InvitationRepositoryImpl implements InvitationRepository {
         .findByReviewerId(reviewerId);
 
     return invitationEntities.stream()
-        .map(InvitationEntityMapper::entityToDomain)
+        .map(InvitationEntityMapper::entityToDomainWithConference)
         .toList();
   }
 

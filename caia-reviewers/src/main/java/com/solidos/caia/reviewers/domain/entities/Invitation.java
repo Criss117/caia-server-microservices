@@ -25,6 +25,8 @@ public class Invitation {
 
   private AuditMetadata auditMetadata;
 
+  private Conference conference;
+
   public void changeState(InvitationState state) {
     if (this.state == InvitationState.PENDING && state == InvitationState.PENDING) {
       throw new IllegalStateException("Cannot change state to PENDING");
