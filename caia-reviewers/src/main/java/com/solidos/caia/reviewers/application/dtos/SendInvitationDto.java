@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class SendInvitationDto {
   @NotNull(message = "User cannot be null")
-  private Long userId;
+  private String email;
 
   @NotNull(message = "Conference cannot be null")
   private Long conferenceId;

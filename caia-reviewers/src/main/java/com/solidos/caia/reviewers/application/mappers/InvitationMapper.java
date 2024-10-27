@@ -5,15 +5,15 @@ import com.solidos.caia.reviewers.domain.entities.Invitation;
 import com.solidos.caia.reviewers.domain.valueobjects.InvitationId;
 
 public class InvitationMapper {
-  public static Invitation dtoToDomain(SendInvitationDto dto) {
+  public static Invitation dtoToDomain(Long userId, SendInvitationDto sendInvitationDto) {
     InvitationId id = InvitationId.builder()
-        .userId(dto.getUserId())
-        .conferenceId(dto.getConferenceId())
+        .userId(userId)
+        .conferenceId(sendInvitationDto.getConferenceId())
         .build();
 
     return Invitation.builder()
         .id(id)
-        .message(dto.getMessage())
+        .message(sendInvitationDto.getMessage())
         .build();
   }
 }

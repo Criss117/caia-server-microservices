@@ -19,4 +19,8 @@ public class Reviewer {
   private String affiliation;
 
   private AuditMetadata auditMetadata;
+
+  public void prepareToSave() {
+    this.id = null;
+  }
 }
