@@ -18,6 +18,6 @@ public interface PaperRepository extends JpaRepository<PaperEntity, Long> {
   @Query("SELECT p FROM PaperEntity p WHERE p.id = ?1 AND p.auditMetadata.deletedAt IS NULL")
   Optional<PaperEntity> findPaper(Long id);
 
-  @Query("SELECT p FROM PaperEntity p WHERE p.conferenceEntity.id = ?1 AND p.auditMetadata.deletedAt IS NULL")
-  List<PaperEntity> findPapersByConference(Long conferenceId);
+  @Query("SELECT p FROM PaperEntity p WHERE p.conferenceEntity.slug = ?1 AND p.auditMetadata.deletedAt IS NULL")
+  List<PaperEntity> findPapersByConference(String slug);
 }

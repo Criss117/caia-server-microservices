@@ -103,8 +103,8 @@ public class PaperServiceImpl implements PaperService {
   }
 
   @Override
-  public List<PaperEntity> findPapersByConference(Long conferenceId) {
-    return paperRepository.findPapersByConference(conferenceId);
+  public List<PaperEntity> findPapersByConference(String slug) {
+    return paperRepository.findPapersByConference(slug);
   }
 
 }

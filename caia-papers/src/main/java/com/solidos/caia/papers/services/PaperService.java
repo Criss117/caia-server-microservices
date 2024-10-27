@@ -14,5 +14,5 @@ public interface PaperService {
 
   public PaperEntity findPaper(Long id);
 
-  public List<PaperEntity> findPapersByConference(Long conferenceId);
+  public List<PaperEntity> findPapersByConference(String slug);
 }

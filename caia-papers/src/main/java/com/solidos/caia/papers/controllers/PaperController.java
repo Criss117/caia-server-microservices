@@ -44,15 +44,15 @@ public class PaperController {
     return ResponseEntity.ok().body(CommonResponse.success("Paper found successfully", papers));
   }
 
-  @GetMapping("find/{paperId}")
+  @GetMapping("find/{slug}")
   public PaperEntity getMethodName(@PathVariable Long paperId) {
     return paperService.findPaper(paperId);
   }
 
-  @GetMapping("find-by-conference/{conferenceId}")
+  @GetMapping("find-by-conference/{slug}")
   public ResponseEntity<CommonResponse<List<PaperEntity>>> findPapersByConference(
-      @PathVariable Long conferenceId) {
-    List<PaperEntity> papers = paperService.findPapersByConference(conferenceId);
+      @PathVariable String slug) {
+    List<PaperEntity> papers = paperService.findPapersByConference(slug);
 
     return ResponseEntity.ok().body(CommonResponse.success("Papers found successfully", papers));
   }
