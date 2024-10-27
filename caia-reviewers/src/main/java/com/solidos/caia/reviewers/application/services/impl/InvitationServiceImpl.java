@@ -1,5 +1,7 @@
 package com.solidos.caia.reviewers.application.services.impl;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -70,6 +72,13 @@ public class InvitationServiceImpl implements InvitationService {
     invitationRepository.save(reviewInvitation);
 
     // TODO: send email
+  }
+
+  @Override
+  public List<Invitation> findByReviewer(String userEmail) {
+    Reviewer reviewer = reviewerService.findByEmail(userEmail);
+
+    return invitationRepository.findByReviewerId(reviewer.getId());
   }
 
 }

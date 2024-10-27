@@ -1,5 +1,7 @@
 package com.solidos.caia.reviewers.infrastructure.repositories;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
@@ -45,6 +47,16 @@ public class InvitationRepositoryImpl implements InvitationRepository {
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invitation not found"));
 
     return InvitationEntityMapper.entityToDomain(invitationEntity);
+  }
+
+  @Override
+  public List<Invitation> findByReviewerId(Long reviewerId) {
+    List<InvitationEntity> invitationEntities = entityInvitationRepository
+        .findByReviewerId(reviewerId);
+
+    return invitationEntities.stream()
+        .map(InvitationEntityMapper::entityToDomain)
+        .toList();
   }
 
 }

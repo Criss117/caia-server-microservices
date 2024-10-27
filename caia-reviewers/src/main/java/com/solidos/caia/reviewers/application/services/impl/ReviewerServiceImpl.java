@@ -30,4 +30,9 @@ public class ReviewerServiceImpl implements ReviewerService {
     return reviewerRepository.save(reviewer);
   }
 
+  @Override
+  public Reviewer findLocalByEmail(String email) {
+    return reviewerRepository.findLocalByEmail(email);
+  }
+
 }

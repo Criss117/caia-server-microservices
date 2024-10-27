@@ -12,12 +12,12 @@ import com.solidos.caia.reviewers.infrastructure.entities.ReviewerEntity;
 import com.solidos.caia.reviewers.infrastructure.mappers.ReviewerEntityMapper;
 
 @Repository
-public class ReviewerRpositoryImpl implements ReviewerRepository {
+public class ReviewerRepositoryImpl implements ReviewerRepository {
 
   private final EntityReviewerRepository entityReviewerRepository;
   private final HttpUserRepository httpUserRepository;
 
-  public ReviewerRpositoryImpl(EntityReviewerRepository entityReviewerRepository,
+  public ReviewerRepositoryImpl(EntityReviewerRepository entityReviewerRepository,
       HttpUserRepository httpUserRepository) {
     this.entityReviewerRepository = entityReviewerRepository;
     this.httpUserRepository = httpUserRepository;
@@ -53,6 +53,14 @@ public class ReviewerRpositoryImpl implements ReviewerRepository {
     ReviewerEntity entity = ReviewerEntityMapper.domainToEntity(reviewer);
     entity = entityReviewerRepository.save(entity);
     return ReviewerEntityMapper.entityToDomain(entity);
+  }
+
+  @Override
+  public Reviewer findLocalByEmail(String userEmail) {
+    ReviewerEntity entityReviewer = entityReviewerRepository.findByEmail(userEmail).orElseThrow(
+        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reviewer not found"));
+
+    return ReviewerEntityMapper.entityToDomain(entityReviewer);
   }
 
 }

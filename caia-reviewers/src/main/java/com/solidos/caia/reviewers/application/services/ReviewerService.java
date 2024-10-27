@@ -8,4 +8,6 @@ public interface ReviewerService {
   public Reviewer findById(Long id);
 
   public Reviewer save(Reviewer reviewer);
+
+  public Reviewer findLocalByEmail(String email);
 }
