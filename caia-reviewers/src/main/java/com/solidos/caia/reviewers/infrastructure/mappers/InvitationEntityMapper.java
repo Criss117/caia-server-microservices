@@ -72,7 +72,7 @@ public class InvitationEntityMapper {
         .deletedAt(entity.getAuditMetadata().getDeletedAt())
         .build();
 
-    ConferenceEntity conferenceEntity = entity.getConferenceEntity();
+    // ConferenceEntity conferenceEntity = entity.getConferenceEntity();
 
     return Invitation.builder()
         .id(id)
@@ -80,11 +80,11 @@ public class InvitationEntityMapper {
         .state(entity.getState())
         .respondedAt(entity.getRespondedAt())
         .message(entity.getMessage())
-        .conference(Conference.builder()
-            .id(conferenceEntity.getId())
-            .name(conferenceEntity.getName())
-            .slug(conferenceEntity.getSlug())
-            .build())
+        // .conference(Conference.builder()
+        // .id(conferenceEntity.getId())
+        // .name(conferenceEntity.getName())
+        // .slug(conferenceEntity.getSlug())
+        // .build())
         .auditMetadata(auditMetadata)
         .build();
   }

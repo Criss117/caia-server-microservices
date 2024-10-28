@@ -30,9 +30,9 @@ public class InvitationEntity {
   @EmbeddedId
   private InvitationComposeId invitationComposeId;
 
-  @ManyToOne
-  @JoinColumn(name = "conference_id", insertable = false, updatable = false)
-  private ConferenceEntity conferenceEntity;
+  // @ManyToOne
+  // @JoinColumn(name = "conference_id", insertable = false, updatable = false)
+  // private ConferenceEntity conferenceEntity;
 
   // @ManyToOne
   // @JoinColumn(name = "user_id", insertable = false, updatable = false)
