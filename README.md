@@ -4,9 +4,11 @@ Este es un proyecto de Spring Boot que utiliza Java 17 y PostgreSQL como base de
 
 ## DOCUMENTACION
 
-[Documento - Modelo C4, Historias de Usuario, etc](https://docs.google.com/document/d/1Ym52ATUNFAdyoGR-uNvlG5cYERNC8vxW/edit)
+[Documentacion](https://drive.google.com/drive/folders/17Z53y-OcQibR3fuAEuZUWhoGvfU-HEwB?usp=sharing)
 
-[Proyecto caia Video](https://drive.google.com/file/d/1kec3rqCJoFHEVblruzpj0E_ewy3MET1Z/view)
+[Repositorio front](https://github.com/Criss117/caia)
+
+[Proyecto caia Video](https://drive.google.com/file/d/1_LCHbb-OW669JQjhPsXOz4Uj-gM9fKIo/view?usp=sharing)
 
 ## Requisitos previos
 
