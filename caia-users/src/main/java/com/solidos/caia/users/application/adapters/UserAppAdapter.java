@@ -14,5 +14,5 @@ public class UserAppAdapter {
         .password(signUpDto.getPassword())
         .build();
   }
-  
+
 }

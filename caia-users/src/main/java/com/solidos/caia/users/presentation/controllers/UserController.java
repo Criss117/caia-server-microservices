@@ -21,7 +21,6 @@ import com.solidos.caia.users.application.services.UserService;
 import com.solidos.caia.users.domain.entities.User;
 import com.solidos.caia.users.utils.CommonResponse;
 
-
 @RestController
 public class UserController {
   private final UserService userService;
@@ -47,12 +46,6 @@ public class UserController {
     return ResponseEntity.ok(CommonResponse.success("User created successfully"));
   }
 
-  /**
-   * Confirms a user.
-   *
-   * @param token the user's confirmation token.
-   * @return a response with a success message.
-   */
   @PostMapping("confirm")
   public ResponseEntity<CommonResponse<String>> confirm(@RequestParam String token) {
     userService.confirm(token);
@@ -78,9 +71,10 @@ public class UserController {
     rabbitMQProducer.sendMessage(example);
     return ResponseEntity.ok(CommonResponse.success("User confirmed  successfully"));
   }
-   @GetMapping("find/{query}")
-   public ResponseEntity<CommonResponse<List<User>>> findByQuery(@PathVariable String query) {
-       var users=userService.findByQuery(query);
+
+  @GetMapping("find/{query}")
+  public ResponseEntity<CommonResponse<List<User>>> findByQuery(@PathVariable String query) {
+    var users = userService.findByQuery(query);
     return ResponseEntity.ok().body(CommonResponse.success("Query Success", users));
-   }
+  }
 }

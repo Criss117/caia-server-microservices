@@ -1,5 +1,9 @@
 package com.solidos.caia.users.domain.entities;
 
+import java.time.LocalDateTime;
+
+import com.solidos.caia.users.utils.TokenGenerator;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,24 +18,25 @@ public class User {
   private String password;
   private String token;
 
-  @Builder.Default
-  private Boolean isEnabled = false;
-
-  @Builder.Default
-  private Boolean accountNoExpired = false;
-
-  @Builder.Default
-  private Boolean accountNoLocked = false;
-
-  @Builder.Default
-  private Boolean credentialsNoExpired = false;
+  private AuditMetadata auditMetadata;
 
   public void confirmAccount() {
     this.token = null;
-    this.isEnabled = true;
-    this.accountNoExpired = true;
-    this.accountNoLocked = true;
-    this.credentialsNoExpired = true;
+    this.auditMetadata.setIsEnabled(true);
   }
 
+  public void prepareToFirstSave() {
+    this.id = null;
+    this.auditMetadata = AuditMetadata.builder()
+        .createdAt(LocalDateTime.now())
+        .updatedAt(LocalDateTime.now())
+        .isEnabled(false)
+        .build();
+
+    generateToken();
+  }
+
+  public void generateToken() {
+    this.token = TokenGenerator.generate();
+  }
 }

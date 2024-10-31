@@ -1,7 +1,6 @@
 package com.solidos.caia.users.application.services.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.logging.log4j.util.InternalException;
 import org.springframework.http.HttpStatus;
@@ -15,21 +14,20 @@ import com.solidos.caia.users.application.dtos.LoginDto;
 import com.solidos.caia.users.application.dtos.SignUpDto;
 import com.solidos.caia.users.application.services.UserService;
 import com.solidos.caia.users.domain.entities.User;
-import com.solidos.caia.users.infraestructure.repositories.JpaUserRepository;
+import com.solidos.caia.users.domain.repositories.UserRepository;
+import com.solidos.caia.users.infraestructure.repositories.UserRepositoryImpl;
 import com.solidos.caia.users.utils.JwtHelper;
-import com.solidos.caia.users.utils.TokenGenerator;
 
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.BadRequestException;
 
 @Service
 public class UserServiceImpl implements UserService {
-  private final JpaUserRepository jpaUserRepository;
+  private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
   private final JwtHelper jwtHelper;
 
-  public UserServiceImpl(JpaUserRepository jpaUserRepository, PasswordEncoder passwordEncoder, JwtHelper jwtHelper) {
-    this.jpaUserRepository = jpaUserRepository;
+  public UserServiceImpl(UserRepositoryImpl userRepository, PasswordEncoder passwordEncoder, JwtHelper jwtHelper) {
+    this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
     this.jwtHelper = jwtHelper;
   }
@@ -37,19 +35,19 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   public User signup(SignUpDto user) {
-    Optional<User> existsUser = jpaUserRepository.findByEmail(user.getEmail());
+    Boolean userExist = userRepository.userExist(user.getEmail());
 
-    if (!existsUser.isEmpty()) {
+    if (userExist) {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
     }
 
     User newUser = UserAppAdapter.signupDtoToDomain(user);
 
     newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-    newUser.setToken(TokenGenerator.generate());
+    newUser.prepareToFirstSave();
 
     try {
-      return jpaUserRepository.save(newUser);
+      return userRepository.save(newUser);
     } catch (Exception e) {
       throw new InternalException("Error creating user");
     }
@@ -57,26 +55,25 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void confirm(String token) {
-    User user = jpaUserRepository.findByToken(token);
+    User user = userRepository.findByToken(token, false);
 
     user.confirmAccount();
 
     try {
-      jpaUserRepository.save(user);
+      userRepository.save(user);
     } catch (Exception e) {
-      throw new BadRequestException("Error confirming user");
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error confirming user");
     }
   }
 
   @Override
   public User findByEmail(String email) {
-    return jpaUserRepository.findByEmail(email)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+    return userRepository.findByEmail(email);
   }
 
   @Override
   public Long findIdByEmail(String email) {
-    return jpaUserRepository.findIdByEmail(email);
+    return userRepository.findIdByEmail(email);
   }
 
   @Override
@@ -92,8 +89,9 @@ public class UserServiceImpl implements UserService {
         .jwt(jwtHelper.createToken(loginDto.getEmail()))
         .message("Login successful").status(true).build();
   }
+
   @Override
-  public List<User> findByQuery(String query){
-  return jpaUserRepository.findByQuery(query);
+  public List<User> findByQuery(String query) {
+    return userRepository.findByQuery(query);
   }
 }
