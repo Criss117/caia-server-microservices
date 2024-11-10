@@ -1,4 +1,4 @@
-package com.solidos.caia.conferences.services;
+package com.solidos.caia.conferences.services.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +19,7 @@ import com.solidos.caia.conferences.entities.User;
 import com.solidos.caia.conferences.repositories.ConferenceRepository;
 import com.solidos.caia.conferences.repositories.MemberRepository;
 import com.solidos.caia.conferences.repositories.OrganizerRepository;
+import com.solidos.caia.conferences.services.ConferenceService;
 import com.solidos.caia.conferences.repositories.HttpUserRepository;
 import com.solidos.caia.conferences.utils.CommonResponse;
 import com.solidos.caia.conferences.utils.SlugGenerator;
@@ -32,12 +33,15 @@ public class ConferenceServiceImpl implements ConferenceService {
   private final OrganizerRepository organizerRepository;
   private final HttpUserRepository userHttpClient;
 
-  public ConferenceServiceImpl(ConferenceRepository conferencesRepository, HttpUserRepository userHttpClient,
-      OrganizerRepository organizerRepository, MemberRepository memberRepository) {
+  public ConferenceServiceImpl(
+      ConferenceRepository conferencesRepository,
+      OrganizerRepository organizerRepository,
+      MemberRepository memberRepository,
+      HttpUserRepository userHttpClient) {
     this.conferencesRepository = conferencesRepository;
-    this.userHttpClient = userHttpClient;
     this.organizerRepository = organizerRepository;
     this.memberRepository = memberRepository;
+    this.userHttpClient = userHttpClient;
   }
 
   @Transactional
@@ -52,7 +56,6 @@ public class ConferenceServiceImpl implements ConferenceService {
 
     OrganizerEntity organizer = user.getOrganizer();
     if (!user.isUserIsOrganizer()) {
-
       organizer = organizerRepository.save(OrganizerEntity.builder()
           .firstName(organizer.getFirstName())
           .lastName(organizer.getLastName())

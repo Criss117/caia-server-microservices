@@ -34,7 +34,7 @@ public class ConferenceController {
     return ResponseEntity.ok().body(CommonResponse.success("Conference created successfully", conference));
   }
 
-  @GetMapping("find")
+  @GetMapping("find-many")
   public ResponseEntity<CommonResponse<List<ConferenceEntity>>> findMany(@RequestHeader String userEmail) {
     List<ConferenceEntity> conferences = conferenceService.findMany(userEmail);
 
@@ -50,7 +50,7 @@ public class ConferenceController {
 
   @GetMapping("/public/{slug}")
   public ResponseEntity<CommonResponse<ConferenceEntity>> publicFindConference(@PathVariable String slug) {
-    var conference = conferenceService.findBySlug(slug);
+    ConferenceEntity conference = conferenceService.findBySlug(slug);
 
     return ResponseEntity.ok().body(CommonResponse.success("Conference found successfully", conference));
   }
@@ -58,7 +58,7 @@ public class ConferenceController {
   @GetMapping("/private/{slug}")
   public ResponseEntity<CommonResponse<ConferenceWithRoleDto>> privateFindConference(
       @PathVariable String slug, @RequestHeader String userEmail) {
-    var conference = conferenceService.findBySlug(slug, userEmail);
+    ConferenceWithRoleDto conference = conferenceService.findBySlug(slug, userEmail);
 
     return ResponseEntity.ok().body(CommonResponse.success("Conference found successfully", conference));
   }

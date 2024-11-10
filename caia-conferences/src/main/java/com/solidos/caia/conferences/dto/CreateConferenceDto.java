@@ -1,5 +1,7 @@
 package com.solidos.caia.conferences.dto;
 
+import java.util.Date;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -17,4 +19,7 @@ public class CreateConferenceDto {
   @NotNull(message = "Description cannot be null")
   @Size(min = 5, max = 255, message = "Description must be between 5 and 255 characters")
   private String description;
+
+  @NotNull(message = "Date cannot be null")
+  private Date date;
 }

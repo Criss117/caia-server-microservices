@@ -5,10 +5,8 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,9 +29,9 @@ public class UserController {
     this.rabbitMQProducer = rabbitMQProducer;
   }
 
-  @GetMapping("/{userEmail}")
-  public ResponseEntity<CommonResponse<User>> findByEmail(@PathVariable String userEmail) {
-    User user = userService.findByEmail(userEmail);
+  @GetMapping("find-by-email")
+  public ResponseEntity<CommonResponse<User>> findByEmail(@RequestParam String email) {
+    User user = userService.findByEmail(email);
 
     user.setPassword(null);
 
@@ -53,12 +51,7 @@ public class UserController {
     return ResponseEntity.ok(CommonResponse.success("User confirmed  successfully"));
   }
 
-  @GetMapping("private")
-  public ResponseEntity<CommonResponse<String>> privateEndpoint(@RequestHeader String userEmail) {
-    return ResponseEntity.ok(CommonResponse.success("This is a private endpoint"));
-  }
-
-  @PostMapping("/login")
+  @PostMapping("login")
   public ResponseEntity<CommonResponse<AuthResponse>> login(@RequestBody @Validated LoginDto loginDto) {
     return ResponseEntity.ok(
         CommonResponse.success(
@@ -72,9 +65,9 @@ public class UserController {
     return ResponseEntity.ok(CommonResponse.success("User confirmed  successfully"));
   }
 
-  @GetMapping("find/{query}")
-  public ResponseEntity<CommonResponse<List<User>>> findByQuery(@PathVariable String query) {
-    var users = userService.findByQuery(query);
+  @GetMapping("search")
+  public ResponseEntity<CommonResponse<List<User>>> findByQuery(@RequestParam String query) {
+    List<User> users = userService.findByQuery(query);
     return ResponseEntity.ok().body(CommonResponse.success("Query Success", users));
   }
 }

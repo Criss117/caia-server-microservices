@@ -1,10 +1,8 @@
 package com.solidos.caia.reviewers.infrastructure.mappers;
 
-import com.solidos.caia.reviewers.domain.entities.Conference;
 import com.solidos.caia.reviewers.domain.entities.Invitation;
 import com.solidos.caia.reviewers.domain.valueobjects.AuditMetadata;
 import com.solidos.caia.reviewers.domain.valueobjects.InvitationId;
-import com.solidos.caia.reviewers.infrastructure.entities.ConferenceEntity;
 import com.solidos.caia.reviewers.infrastructure.entities.EntityAuditMetadata;
 import com.solidos.caia.reviewers.infrastructure.entities.InvitationComposeId;
 import com.solidos.caia.reviewers.infrastructure.entities.InvitationEntity;
