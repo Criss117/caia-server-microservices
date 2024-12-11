@@ -1,4 +1,4 @@
-package com.solidos.caia.users.application.dtos;
+package com.solidos.caia.users.application.ports.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

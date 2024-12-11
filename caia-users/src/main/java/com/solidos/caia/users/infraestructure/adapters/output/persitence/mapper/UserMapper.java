@@ -1,9 +1,9 @@
-package com.solidos.caia.users.infraestructure.mappers;
+package com.solidos.caia.users.infraestructure.adapters.output.persitence.mapper;
 
 import com.solidos.caia.users.domain.entities.AuditMetadata;
 import com.solidos.caia.users.domain.entities.User;
-import com.solidos.caia.users.infraestructure.entites.EntityAuditMetadata;
-import com.solidos.caia.users.infraestructure.entites.UserEntity;
+import com.solidos.caia.users.infraestructure.adapters.output.persitence.entity.EntityAuditMetadata;
+import com.solidos.caia.users.infraestructure.adapters.output.persitence.entity.UserEntity;
 
 public class UserMapper {
 

@@ -1,4 +1,4 @@
-package com.solidos.caia.users.presentation.controllers;
+package com.solidos.caia.users.infraestructure.adapters.input.rest;
 
 import java.util.List;
 
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.solidos.caia.users.application.dtos.AuthResponse;
-import com.solidos.caia.users.application.dtos.Example;
-import com.solidos.caia.users.application.dtos.LoginDto;
-import com.solidos.caia.users.application.dtos.SignUpDto;
-import com.solidos.caia.users.application.services.RabbitMQProducer;
-import com.solidos.caia.users.application.services.UserService;
+import com.solidos.caia.users.application.ports.input.AuthResponse;
+import com.solidos.caia.users.application.ports.input.Example;
+import com.solidos.caia.users.application.ports.input.LoginDto;
+import com.solidos.caia.users.application.ports.input.SignUpDto;
+import com.solidos.caia.users.application.ports.input.UserService;
 import com.solidos.caia.users.domain.entities.User;
+import com.solidos.caia.users.domain.service.RabbitMQProducer;
 import com.solidos.caia.users.utils.CommonResponse;
 
 @RestController
