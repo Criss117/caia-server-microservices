@@ -1,16 +1,17 @@
-package com.solidos.caia.users.application.services;
+package com.solidos.caia.users.domain.service;
 
-import com.solidos.caia.users.application.dtos.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
+import com.solidos.caia.users.application.ports.input.Example;
+
 @Service
 public class RabbitMQConsumer {
   private static final Logger LOGGER = LoggerFactory.getLogger(RabbitMQConsumer.class);
 
-  @RabbitListener(queues = {"${rabbitmq.queue.name}"})
+  @RabbitListener(queues = { "${rabbitmq.queue.name}" })
   public void consume(Example example) {
     LOGGER.info(String.format("Message received -> %s", example.toString()));
   }

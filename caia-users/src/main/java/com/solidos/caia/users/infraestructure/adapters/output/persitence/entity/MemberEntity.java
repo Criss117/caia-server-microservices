@@ -1,4 +1,4 @@
-package com.solidos.caia.users.infraestructure.entites;
+package com.solidos.caia.users.infraestructure.adapters.output.persitence.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 

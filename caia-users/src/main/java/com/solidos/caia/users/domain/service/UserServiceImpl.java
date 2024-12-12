@@ -1,4 +1,4 @@
-package com.solidos.caia.users.application.services.impl;
+package com.solidos.caia.users.domain.service;
 
 import java.util.List;
 
@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.solidos.caia.users.application.adapters.UserAppAdapter;
-import com.solidos.caia.users.application.dtos.AuthResponse;
-import com.solidos.caia.users.application.dtos.LoginDto;
-import com.solidos.caia.users.application.dtos.SignUpDto;
-import com.solidos.caia.users.application.services.UserService;
+import com.solidos.caia.users.application.ports.input.AuthResponse;
+import com.solidos.caia.users.application.ports.input.LoginDto;
+import com.solidos.caia.users.application.ports.input.SignUpDto;
+import com.solidos.caia.users.application.ports.input.UserService;
 import com.solidos.caia.users.domain.entities.User;
 import com.solidos.caia.users.domain.repositories.UserRepository;
-import com.solidos.caia.users.infraestructure.repositories.UserRepositoryImpl;
+import com.solidos.caia.users.infraestructure.adapters.output.persitence.repository.UserRepositoryImpl;
 import com.solidos.caia.users.utils.JwtHelper;
 
 import jakarta.transaction.Transactional;

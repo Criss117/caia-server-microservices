@@ -1,6 +1,6 @@
 package com.solidos.caia.users.application.adapters;
 
-import com.solidos.caia.users.application.dtos.SignUpDto;
+import com.solidos.caia.users.application.ports.input.SignUpDto;
 import com.solidos.caia.users.domain.entities.User;
 
 public class UserAppAdapter {

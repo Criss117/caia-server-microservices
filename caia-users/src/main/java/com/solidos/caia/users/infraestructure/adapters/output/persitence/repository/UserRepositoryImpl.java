@@ -1,4 +1,4 @@
-package com.solidos.caia.users.infraestructure.repositories;
+package com.solidos.caia.users.infraestructure.adapters.output.persitence.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +9,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.solidos.caia.users.domain.entities.User;
 import com.solidos.caia.users.domain.repositories.UserRepository;
-import com.solidos.caia.users.infraestructure.entites.UserEntity;
-import com.solidos.caia.users.infraestructure.mappers.UserMapper;
+import com.solidos.caia.users.infraestructure.adapters.output.persitence.entity.UserEntity;
+import com.solidos.caia.users.infraestructure.adapters.output.persitence.mapper.UserMapper;
 
 import jakarta.transaction.Transactional;
 

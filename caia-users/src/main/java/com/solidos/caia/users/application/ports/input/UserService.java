@@ -1,10 +1,7 @@
-package com.solidos.caia.users.application.services;
+package com.solidos.caia.users.application.ports.input;
 
 import java.util.List;
 
-import com.solidos.caia.users.application.dtos.AuthResponse;
-import com.solidos.caia.users.application.dtos.LoginDto;
-import com.solidos.caia.users.application.dtos.SignUpDto;
 import com.solidos.caia.users.domain.entities.User;
 
 public interface UserService {

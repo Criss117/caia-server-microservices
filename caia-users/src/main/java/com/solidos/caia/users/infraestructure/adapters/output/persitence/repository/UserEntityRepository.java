@@ -1,4 +1,4 @@
-package com.solidos.caia.users.infraestructure.repositories;
+package com.solidos.caia.users.infraestructure.adapters.output.persitence.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.solidos.caia.users.infraestructure.entites.UserEntity;
+import com.solidos.caia.users.infraestructure.adapters.output.persitence.entity.UserEntity;
 
 @Repository
 public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {

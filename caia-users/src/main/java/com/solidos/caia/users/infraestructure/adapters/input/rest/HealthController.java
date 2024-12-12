@@ -1,4 +1,4 @@
-package com.solidos.caia.users.presentation.controllers;
+package com.solidos.caia.users.infraestructure.adapters.input.rest;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

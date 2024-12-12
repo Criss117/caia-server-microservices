@@ -1,4 +1,4 @@
-package com.solidos.caia.users.application.dtos;
+package com.solidos.caia.users.application.ports.input;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
