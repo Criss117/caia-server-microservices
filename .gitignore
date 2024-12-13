@@ -36,3 +36,38 @@ build/
 !**/src/test/**/build/
 
 **/src/main/resources/papers
+
+# dependencies
+/caia-client/node_modules
+/caia-client/.pnp
+/caia-client.pnp.js
+/caia-client.yarn/install-state.gz
+
+# testing
+/caia-client/coverage
+
+# next.js
+/caia-client/.next/
+/caia-client/out/
+
+# production
+/caia-client/build
+
+# misc
+/caia-client.DS_Store
+/caia-client*.pem
+
+# debug
+/caia-client/npm-debug.log*
+/caia-client/yarn-debug.log*
+/caia-client/yarn-error.log*
+
+# local env files
+/caia-client/.env*.local
+
+# vercel
+/caia-client/.vercel
+
+# typescript
+/caia-client/*.tsbuildinfo
+/caia-client/next-env.d.ts
