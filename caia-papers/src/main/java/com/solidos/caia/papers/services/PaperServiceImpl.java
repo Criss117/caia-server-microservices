@@ -17,6 +17,7 @@ import com.solidos.caia.papers.enums.PaperStateEnum;
 import com.solidos.caia.papers.repositories.AuthorRepository;
 import com.solidos.caia.papers.repositories.ConferenceRepository;
 import com.solidos.caia.papers.repositories.PaperRepository;
+import com.solidos.caia.papers.states.Resultado;
 import com.solidos.caia.papers.utils.PaperKeys;
 
 import jakarta.transaction.Transactional;
@@ -109,11 +110,34 @@ public class PaperServiceImpl implements PaperService {
   }
 
   @Override
-  public boolean cambiarEstadoPaper(Long paperId, PaperStateEnum nuevoEstado) {
-      PaperEntity paper = paperRepository.findPaper(paperId)
+  public Resultado cambiarEstadoPaper(Long paperId, PaperStateEnum nuevoEstado) {
+      PaperEntity paper = paperRepository.findById(paperId)
           .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paper not found"));
       
-      return paper.cambiarEstado(nuevoEstado);
+      Resultado resultado;
+      
+      switch (nuevoEstado) {
+          case EN_EVALUACION:
+              resultado = paper.enviarParaEvaluacion();
+              break;
+          case APROBADO:
+              resultado = paper.aprobarArticulo();
+              break;
+          case FORMULADO_CON_OBSERVACIONES:
+              resultado = paper.fijarObservacionesArticulo();
+              break;
+          case NO_APROBADO:
+              resultado = paper.noAprobarArticulo();
+              break;
+          default:
+              return new Resultado(false, "Estado no válido");
+      }
+
+      if (resultado.cambioPermitido()) {
+          paperRepository.save(paper);
+      }
+
+      return resultado;
   }
 
 }

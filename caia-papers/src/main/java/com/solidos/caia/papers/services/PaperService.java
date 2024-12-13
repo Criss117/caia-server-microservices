@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.solidos.caia.papers.dtos.CreatePaperDto;
 import com.solidos.caia.papers.entities.PaperEntity;
 import com.solidos.caia.papers.enums.PaperStateEnum;
+import com.solidos.caia.papers.states.Resultado;
 
 public interface PaperService {
   public PaperEntity createPaper(String userEmail, CreatePaperDto createPaperDto, MultipartFile file);
@@ -17,6 +18,6 @@ public interface PaperService {
 
   public List<PaperEntity> findPapersByConference(String slug);
 
-  boolean cambiarEstadoPaper(Long paperId, PaperStateEnum nuevoEstado);
+  Resultado cambiarEstadoPaper(Long paperId, PaperStateEnum nuevoEstado);
 
 }
