@@ -1,8 +1,11 @@
 package com.solidos.caia.papers.enums;
 
 public enum PaperStateEnum {
-  UNDER_REVIEW,
-  ACCEPTED,
-  REJECTED,
-  WAITING_FOR_REVIEW
+  FORMULADO,
+  FORMULADO_CON_OBSERVACIONES,
+  EN_EVALUACION,
+  NO_APROBADO,
+  APROBADO
 }
+
+

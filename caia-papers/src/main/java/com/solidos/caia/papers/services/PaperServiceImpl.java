@@ -13,9 +13,11 @@ import com.solidos.caia.papers.dtos.FindUserByEmailDto;
 import com.solidos.caia.papers.entities.AuthorEntity;
 import com.solidos.caia.papers.entities.ConferenceEntity;
 import com.solidos.caia.papers.entities.PaperEntity;
+import com.solidos.caia.papers.enums.PaperStateEnum;
 import com.solidos.caia.papers.repositories.AuthorRepository;
 import com.solidos.caia.papers.repositories.ConferenceRepository;
 import com.solidos.caia.papers.repositories.PaperRepository;
+import com.solidos.caia.papers.states.Resultado;
 import com.solidos.caia.papers.utils.PaperKeys;
 
 import jakarta.transaction.Transactional;
@@ -105,6 +107,37 @@ public class PaperServiceImpl implements PaperService {
   @Override
   public List<PaperEntity> findPapersByConference(String slug) {
     return paperRepository.findPapersByConference(slug);
+  }
+
+  @Override
+  public Resultado cambiarEstadoPaper(Long paperId, PaperStateEnum nuevoEstado) {
+      PaperEntity paper = paperRepository.findById(paperId)
+          .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paper not found"));
+      
+      Resultado resultado;
+      
+      switch (nuevoEstado) {
+          case EN_EVALUACION:
+              resultado = paper.enviarParaEvaluacion();
+              break;
+          case APROBADO:
+              resultado = paper.aprobarArticulo();
+              break;
+          case FORMULADO_CON_OBSERVACIONES:
+              resultado = paper.fijarObservacionesArticulo();
+              break;
+          case NO_APROBADO:
+              resultado = paper.noAprobarArticulo();
+              break;
+          default:
+              return new Resultado(false, "Estado no válido");
+      }
+
+      if (resultado.cambioPermitido()) {
+          paperRepository.save(paper);
+      }
+
+      return resultado;
   }
 
 }
