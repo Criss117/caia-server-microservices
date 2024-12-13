@@ -2,6 +2,9 @@ package com.solidos.caia.papers.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.solidos.caia.papers.enums.PaperStateEnum;
+import com.solidos.caia.papers.states.FormuladoState;
+import com.solidos.caia.papers.states.FormuladoConObservacionesState;
+import com.solidos.caia.papers.states.PaperState;
 import com.solidos.caia.papers.utils.AuditMetadata;
 
 import jakarta.persistence.Column;
@@ -59,8 +62,31 @@ public class PaperEntity {
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   @Builder.Default
-  private PaperStateEnum state = PaperStateEnum.WAITING_FOR_REVIEW;
+  private PaperStateEnum state = PaperStateEnum.EN_EVALUACION;
 
   @Embedded
   private AuditMetadata auditMetadata;
+
+
+
+
+  // Agregar este método a PaperEntity.java
+private PaperState paperState;
+
+public void setEstado(PaperStateEnum estado) {
+    this.state = estado;
+    switch (estado) {
+        case FORMULADO:
+            this.paperState = new FormuladoState();
+            break;
+        case FORMULADO_CON_OBSERVACIONES:
+            this.paperState = new FormuladoConObservacionesState();
+            break;
+        // ... otros casos
+    }
+}
+
+public boolean cambiarEstado(PaperStateEnum nuevoEstado) {
+    return paperState.cambiarEstado(this, nuevoEstado);
+}
 }

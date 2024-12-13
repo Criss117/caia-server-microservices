@@ -13,6 +13,7 @@ import com.solidos.caia.papers.dtos.FindUserByEmailDto;
 import com.solidos.caia.papers.entities.AuthorEntity;
 import com.solidos.caia.papers.entities.ConferenceEntity;
 import com.solidos.caia.papers.entities.PaperEntity;
+import com.solidos.caia.papers.enums.PaperStateEnum;
 import com.solidos.caia.papers.repositories.AuthorRepository;
 import com.solidos.caia.papers.repositories.ConferenceRepository;
 import com.solidos.caia.papers.repositories.PaperRepository;
@@ -105,6 +106,14 @@ public class PaperServiceImpl implements PaperService {
   @Override
   public List<PaperEntity> findPapersByConference(String slug) {
     return paperRepository.findPapersByConference(slug);
+  }
+
+  @Override
+  public boolean cambiarEstadoPaper(Long paperId, PaperStateEnum nuevoEstado) {
+      PaperEntity paper = paperRepository.findPaper(paperId)
+          .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paper not found"));
+      
+      return paper.cambiarEstado(nuevoEstado);
   }
 
 }
